@@ -1,0 +1,48 @@
+.profile-card {
+    border: 1px solid var(--light-color);
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 32px;
+}
+
+.avatar-name {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    grid-gap: 20px;
+}
+
+.profile-card__avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-card__name {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.profile-card__tags {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.skill-tag {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 4px 8px;
+    color: var(--light-color);
+    border-radius: 2px;
+    border: 1px solid var(--light-color);
+    font-weight: 700;
+    font-size: 12px;
+}
+.major-skill-tag {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
