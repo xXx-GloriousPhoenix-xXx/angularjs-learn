@@ -7,6 +7,6 @@ import { Profile } from '../../data/interfaces/profile.interface';
     templateUrl: './profile-card.html',
     styleUrl: './profile-card.scss',
 })
-export class ProfileCard {
+export class ProfileCardComponent {
     @Input() profile!: Profile;
 }
