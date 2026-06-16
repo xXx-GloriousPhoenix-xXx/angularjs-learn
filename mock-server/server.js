@@ -129,7 +129,7 @@ authRouter.post('/refresh', (req, res) => {
 
     const username = refreshTokens.get(refresh_token);
     if (!username) {
-        return res.status(401).json({ error: 'Invalid or expired refresh_token' });
+        return res.status(403).json({ error: 'Invalid or expired refresh_token' });
     }
 
     refreshTokens.delete(refresh_token);
@@ -156,18 +156,18 @@ accountRouter.get('/test_account', (req, res) => {
     res.json(profiles);
 });
 
-accountRouter.get('/:id', (req, res) => {
-    console.debug('/account/:id request');
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) return res.status(400).json({ error: 'Invalid id' });
-    res.json(generateProfile(id));
-});
-
 accountRouter.get('/me', requireAuth, (req, res) => {
     console.debug('/account/me request');
     const user = users.get(req.username);
     if (!user) return res.status(404).json({ error: 'User not found' });
     res.json(generateProfile(req.username));
+});
+
+accountRouter.get('/:id', (req, res) => {
+    console.debug('/account/:id request');
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) return res.status(400).json({ error: 'Invalid id' });
+    res.json(generateProfile(id));
 });
 
 app.use('/account', accountRouter);

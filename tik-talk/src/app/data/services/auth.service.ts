@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Service, inject } from '@angular/core';
 import { TokenResponse } from '../interfaces/token-response.interface';
-import { Observable, catchError, map, of, tap } from 'rxjs';
+import { EMPTY, Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { LoginPayload } from '../interfaces/login-payload.interface';
 import { RegisterPayload } from '../interfaces/register-payload.interface';
 import { Router } from '@angular/router';
@@ -32,13 +32,7 @@ export class AuthService {
             `${this.baseApiUrl}/login`,
             payload)
             .pipe(
-                tap(val => {
-                    this.access_token = val.access_token;
-                    this.refresh_token = val.refresh_token;
-
-                    this.cookieService.set("access_token", val.access_token, undefined, '/');
-                    this.cookieService.set("refresh_token", val.refresh_token, undefined, '/');
-                })
+                tap(val => this.setToken(val))
             );
     }
     register(payload: RegisterPayload) {
@@ -47,29 +41,41 @@ export class AuthService {
             payload);
     }
 
-    // logout()
-    refresh(): Observable<boolean> {
-        if (this.refresh_token) {
-            this.router.navigate(["/login"]);
-            return of(false);
+    refresh(): Observable<TokenResponse> {
+        if (!this.refresh_token) {
+            this.router.navigate(["/auth/login"]);
+            return EMPTY; 
         }
         
         return this.http.post<TokenResponse>(
             `${this.baseApiUrl}/refresh`,
-            { refresh_token: this.refresh_token })
-            .pipe(
-                tap(val => {
-                    this.access_token = val.access_token;
-                }),
-                map(() => true),
-                catchError((err) => {
-                    console.error('Refresh failed, logging out...', err);
-                    this.access_token = null;
-                    this.refresh_token = null;
+            { refresh_token: this.refresh_token }
+        ).pipe(
+            tap(val => this.setToken(val)),
+            catchError(err => {
+                console.error('Refresh failed, logging out...', err);
+                this.logout(); 
+                return EMPTY; 
+            })
+        );
+    }
 
-                    this.router.navigate(["/auth/login"]);
-                    return of(false);
-                })
-            );
+    logout() {
+        this.removeToken();
+        this.router.navigate(['/auth/login']);
+    }
+
+    setToken(res: TokenResponse) {
+        this.cookieService.set("access_token", res.access_token, undefined, '/');
+        this.cookieService.set("refresh_token", res.refresh_token, undefined, '/');
+        this.access_token = res.access_token;
+        this.refresh_token = res.refresh_token;
+    }
+
+    removeToken() {
+        this.cookieService.delete('access_token');
+        this.cookieService.delete('refresh_token');
+        this.access_token = null;
+        this.refresh_token = null;
     }
 }
