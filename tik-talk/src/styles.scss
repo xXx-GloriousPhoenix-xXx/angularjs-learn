@@ -1,4 +1,5 @@
 @use "fonts";
+@use "margins";
 
 *, *::before, *::after {
     box-sizing: border-box;
@@ -10,22 +11,58 @@
     --dark-color: black;
     --light-color: white;
     --primary-color: #AE7AFF;
+    --gray-color: #5F646D;
 }
 
 body {
     font-family: "JetBrains Mono", sans-serif;
     background: var(--dark-color);
     color: var(--light-color);
+    background-image: url(/assets/images/bg.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .btn {
-    border: none;
+    font-family: "JetBrains Mono", sans-serif;
+    border: 1px solid var(--dark-color);
+    border-radius: 2px;
     background: var(--primary-color);
     color: var(--dark-color);
     padding: 10px 20px;
     font-weight: 700;
     font-size: 14px;
     line-height: 24px;
+    width: 100%;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.btn:hover {
+    background-color: var(--dark-color);
+    border-color: var(--light-color);
+    color: var(--light-color);
+}
+
+.btn-shadow {
+    position: relative;
+    &:before {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        right: -4px;
+        background-color: var(--gray-color);
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+}
+
+.h1 {
+    font-size: 48px;
+    line-height: 56px;
+    font-weight: 800;
 }
 
 .h6 {
@@ -38,4 +75,42 @@ body {
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
+}
+
+.tt-control-label {
+    display: block;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.tt-input {
+    display: block;
+    border: 1px solid var(--light-color);
+    border-radius: 2px;
+    padding: 12px 20px;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    outline: none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    font-family: "JetBrains Mono", sans-serif;
+    margin-top: 8px;
+    width: 100%;
+}
+
+.tt-tip {
+    width: 100%;
+    text-align: center;
+}
+
+.tt-link {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: 200ms;
+}
+
+.tt-link:hover {
+    color: var(--light-color);
 }

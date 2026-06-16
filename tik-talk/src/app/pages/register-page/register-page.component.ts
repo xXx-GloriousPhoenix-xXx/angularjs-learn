@@ -1,35 +1,36 @@
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../data/services/auth.service';
-import { LoginForm } from '../../data/interfaces/login-form.interface';
+import { RegisterForm } from '../../data/interfaces/register-form.interface';
 import { Router, RouterLink } from "@angular/router";
 
 @Component({
-    selector: 'app-login-page',
+    selector: 'app-register-page',
     imports: [ReactiveFormsModule, RouterLink],
-    templateUrl: './login-page.component.html',
+    templateUrl: './register-page.component.html',
 })
-export class LoginPageComponent {
+export class RegisterPageComponent {
     authService = inject(AuthService);
     router = inject(Router);
 
-    form = new FormGroup<LoginForm>({
+    form = new FormGroup<RegisterForm>({
         username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+        email: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
         password: new FormControl('', { nonNullable: true, validators: [Validators.required] })
     })
 
     onSubmit() {
         if (this.form.valid) {
             const raw = this.form.getRawValue();
-            this.authService.login(raw).subscribe({
-                next: (response) => {
-                    console.log('Logged in successfully, token:', response.access_token);
-                    this.router.navigate(['/']);
+            this.authService.register(raw).subscribe({
+                next: () => {
+                    console.log('Registered successfully');
+                    this.router.navigate(['/auth/login']);
                 },
                 error: (err) => {
-                    console.error('Log in failed', err);
+                    console.error('Register failed, error:', err);
                 }
-            })
+            });
         }
     }
 }
