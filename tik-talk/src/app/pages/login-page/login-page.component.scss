@@ -1,0 +1,16 @@
+.password-input {
+    position: relative;
+}
+.password-hide-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #FFFFFFBF;
+}
+
+.password-hide-btn.active {
+    color: var(--primary-color);
+}

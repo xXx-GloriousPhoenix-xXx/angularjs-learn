@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../data/services/auth.service';
 import { LoginForm } from '../../data/interfaces/login-form.interface';
@@ -8,10 +8,13 @@ import { Router, RouterLink } from "@angular/router";
     selector: 'app-login-page',
     imports: [ReactiveFormsModule, RouterLink],
     templateUrl: './login-page.component.html',
+    styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
     authService = inject(AuthService);
     router = inject(Router);
+
+    isPasswordHidden = signal<boolean>(true);
 
     form = new FormGroup<LoginForm>({
         username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
