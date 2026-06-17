@@ -1,1 +1,29 @@
-<p>sidebar works!</p>
+<img 
+    src="/assets/svg/logo-small.svg"
+    alt="logo"
+    class="ml16 mb20"
+>
+<nav>
+    <ul class="main-menu-list">
+        @for (item of menuItems; track item.label) {
+            <li>
+                <button class="menu-item">
+                    <svg [icon]="item.icon" class="menu-item-icon"></svg>
+                    <span>{{ item.label }}</span>
+                </button>
+            </li>
+        }
+    </ul>
+</nav>
+
+<p class="medium-text mb20">Subscribers</p>
+
+<!-- <app-subscriber-card></app-subscriber-card> -->
+
+<div class="mt20 to-subscribers">
+    <a
+        [routerLink]="['/subscribers']"
+        class="to-subscribers-link medium-text"
+    >All subscribers</a>
+    <svg icon="arrow" class="to-subscribers-icon"></svg>
+</div>
