@@ -17,12 +17,15 @@
 
 body {
     font-family: "JetBrains Mono", sans-serif;
-    background: var(--dark-color);
+    background-color: var(--dark-hover-color);
     color: var(--light-color);
+    height: 100dvh;
+
     background-image: url(/assets/images/bg.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 .btn {
