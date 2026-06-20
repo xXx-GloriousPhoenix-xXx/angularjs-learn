@@ -3,6 +3,7 @@
     padding: 20px 12px;
     background-color: var(--dark-color);
     position: relative;
+    height: 100dvh;
 }
 
 .main-menu-list {
@@ -72,7 +73,7 @@
     padding: 4px 16px;
     grid-gap: 12px;
     display: grid;
-    grid-template-columns: 32px 1fr 16px;
+    grid-template-columns: 32px 1fr;
     align-items: center;
     color: var(--light-color);
 
@@ -96,13 +97,17 @@
         line-height: 24px;
     }
 
-    .sidebar-settings {
+    .sidebar-profile {
         text-decoration: none;
         color: inherit;
         display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .sidebar-settings-icon {
+        display: flex;
         width: 16px;
         height: 16px;
     }

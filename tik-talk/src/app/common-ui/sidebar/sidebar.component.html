@@ -39,10 +39,13 @@
             [src]="me.avatarUrl ? me.avatarUrl : '/assets/images/avatar-placeholder.png'"
             [alt]="me.username"
         >
-        <span class="me-username">{{ me.username }}</span>
-        <a [routerLink]="['/profile']"
-            class="sidebar-settings"
-        ><svg icon="settings" class="sidebar-settings-icon"></svg></a>
+        
+        <a [routerLink]="['/profile', 'me']"
+            class="sidebar-profile"
+        >
+            <p class="me-username">{{ me.username }}</p>
+            <svg icon="settings" class="sidebar-settings-icon"></svg>
+        </a>
     }
     @else {
 

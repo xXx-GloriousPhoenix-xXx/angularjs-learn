@@ -1,1 +1,8 @@
-<app-edit-profile-header></app-edit-profile-header>
+@if (profile$ | async; as profile) {
+    <header class="edit-header">
+        <app-profile-header
+            [profile]="profile"
+            [isEdit]="true"
+        />
+    </header>
+}

@@ -72,6 +72,7 @@ body {
 .h4 {
     font-weight: 800;
     font-size: 24px;
+    font-style: normal;
     line-height: 32px;
 }
 
@@ -137,4 +138,16 @@ body {
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
+}
+
+.skill-tag {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    padding: 4px 8px;
+    color: var(--light-color);
+    border-radius: 2px;
+    border: 1px solid var(--light-color);
+    font-weight: 700;
+    font-size: 12px;
 }

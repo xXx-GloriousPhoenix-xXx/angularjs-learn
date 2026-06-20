@@ -17,8 +17,9 @@ export const routes: Routes = [
             { 
                 path: 'profile',
                 children: [
-                    { path: '', component: ViewProfilePageComponent },
-                    { path: 'edit', component: EditProfilePageComponent }
+                    { path: '', redirectTo: '/', pathMatch: 'full' },
+                    { path: ':id', component: ViewProfilePageComponent },
+                    { path: ':id/edit', component: EditProfilePageComponent }
                 ]
                 
             }
