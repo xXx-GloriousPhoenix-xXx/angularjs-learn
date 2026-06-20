@@ -1,0 +1,38 @@
+:host {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 140px 1fr 316px;
+    align-items: center;
+    grid-gap: 24px;
+}
+
+.header-avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+}
+
+.header-name__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    align-items: center;
+}
+
+.header-username {
+    line-height: 21px;
+}
+
+.header-edit {
+    width: 16px;
+    height: 16px;
+}
+
+.header-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+    gap: 8px;
+    text-decoration: none;
+}
