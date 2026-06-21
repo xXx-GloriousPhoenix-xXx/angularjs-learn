@@ -7,6 +7,7 @@ import { AuthLayoutComponent } from './common-ui/auth-layout/auth-layout.compone
 import { SidebarLayoutComponent } from './common-ui/sidebar-layout/sidebar-layout.component';
 import { canActivateAuth } from './common-ui/access.guard';
 import { EditProfilePageComponent } from './pages/edit-profile-page/edit-profile-page.component';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 export const routes: Routes = [
     { 
@@ -18,7 +19,7 @@ export const routes: Routes = [
                 path: 'profile',
                 children: [
                     { path: '', redirectTo: '/', pathMatch: 'full' },
-                    { path: ':id', component: ViewProfilePageComponent },
+                    { path: ':id', component: ProfilePageComponent },
                     { path: ':id/edit', component: EditProfilePageComponent }
                 ]
                 
