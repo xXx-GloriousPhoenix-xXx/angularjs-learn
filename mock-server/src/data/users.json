@@ -15,7 +15,7 @@
     {
       "id": "abcd",
       "username": "abcd",
-      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782172170503.jpg",
+      "avatarUrl": "",
       "subscriptionsAmount": 42,
       "firstName": "Shigure",
       "lastName": "Minadzuki",
