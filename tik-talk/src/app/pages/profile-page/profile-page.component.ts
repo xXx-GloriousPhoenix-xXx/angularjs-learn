@@ -3,14 +3,14 @@ import { ProfileHeaderComponent } from "../../common-ui/profile-header/profile-h
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ProfileService } from '../../data/services/profile.service';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { Observable, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { Profile } from '../../data/interfaces/profile.interface';
 import { PostFeedComponent } from "./post-feed/post-feed.component";
+import { StackListPipe } from '../../common-ui/pipes/stack-list-pipe';
 
 @Component({
     selector: 'app-profile-page',
-    imports: [ProfileHeaderComponent, RouterLink, AsyncPipe, PostFeedComponent],
+    imports: [ProfileHeaderComponent, RouterLink, AsyncPipe, PostFeedComponent, StackListPipe],
     templateUrl: './profile-page.component.html',
     styleUrl: './profile-page.component.scss',
 })

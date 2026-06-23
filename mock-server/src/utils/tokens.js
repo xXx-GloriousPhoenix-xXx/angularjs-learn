@@ -1,6 +1,6 @@
 const { generateToken } = require('./crypto');
+const { users }         = require('./users-store');
 
-const users         = new Map(); // username     -> { username, email, passwordHash }
 const accessTokens  = new Map(); // accessToken  -> username
 const refreshTokens = new Map(); // refreshToken -> username
 

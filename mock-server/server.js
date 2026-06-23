@@ -1,16 +1,20 @@
-const express      = require('express');
-const cors         = require('cors');
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi    = require('swagger-ui-express');
-
+const path          = require('path');
+const express       = require('express');
+const cors          = require('cors');
+const swaggerJsdoc  = require('swagger-jsdoc');
+const swaggerUi     = require('swagger-ui-express');
 const authRouter    = require('./src/routes/auth');
 const accountRouter = require('./src/routes/account');
+const { IMAGES_DIR } = require('./src/utils/avatar-upload');
 
 const app  = express();
 const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
+
+// Serve uploaded avatar images statically, e.g. GET /account/me/avatar/<filename>
+app.use('/account/me/avatar', express.static(IMAGES_DIR));
 
 // ─── Swagger ──────────────────────────────────────────────────────────────────
 const swaggerSpec = swaggerJsdoc({
@@ -59,7 +63,6 @@ const swaggerSpec = swaggerJsdoc({
     },
     apis: ['./src/routes/*.js'],
 });
-
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
@@ -69,10 +72,13 @@ app.use('/account', accountRouter);
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
     console.log(`  Swagger UI: http://localhost:${PORT}/docs`);
-    console.log(`  GET  http://localhost:${PORT}/account/test_account`);
-    console.log(`  GET  http://localhost:${PORT}/account/subscribers  (auth required)`);
-    console.log(`  POST http://localhost:${PORT}/auth/register`);
-    console.log(`  POST http://localhost:${PORT}/auth/login`);
-    console.log(`  POST http://localhost:${PORT}/auth/refresh`);
-    console.log(`  POST http://localhost:${PORT}/auth/logout`);
+    console.log(`  GET   http://localhost:${PORT}/account/test_account`);
+    console.log(`  GET   http://localhost:${PORT}/account/subscribers  (auth required)`);
+    console.log(`  GET   http://localhost:${PORT}/account/me            (auth required)`);
+    console.log(`  PATCH http://localhost:${PORT}/account/me            (auth required)`);
+    console.log(`  POST  http://localhost:${PORT}/account/me/avatar     (auth required, multipart/form-data, field "avatar")`);
+    console.log(`  POST  http://localhost:${PORT}/auth/register`);
+    console.log(`  POST  http://localhost:${PORT}/auth/login`);
+    console.log(`  POST  http://localhost:${PORT}/auth/refresh`);
+    console.log(`  POST  http://localhost:${PORT}/auth/logout`);
 });

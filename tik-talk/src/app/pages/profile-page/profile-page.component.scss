@@ -5,10 +5,11 @@
 }
 
 .profile-page__header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 64px;
+    align-items: center;
 }
 
 .to-settings-icon {
@@ -24,6 +25,7 @@
     justify-content: center;
     gap: 8px;
     height: fit-content;
+    margin-left: 24px;
 }
 
 .profile-page__body {

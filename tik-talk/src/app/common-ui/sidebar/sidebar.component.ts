@@ -21,7 +21,7 @@ export class SidebarComponent {
         {
             label: 'Home',
             icon: 'home',
-            link: ''
+            link: 'profile/me'
         },
         {
             label: 'Chats',
@@ -31,7 +31,7 @@ export class SidebarComponent {
         {
             label: 'Search',
             icon: 'search',
-            link: 'search'
+            link: '/'
         }
     ];
 

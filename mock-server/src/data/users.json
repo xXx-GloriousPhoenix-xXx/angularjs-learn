@@ -1,0 +1,49 @@
+{
+  "users": [
+    {
+      "username": "abcd",
+      "email": "abcd@abcd.com",
+      "passwordHash": "e9cee71ab932fde863338d08be4de9dfe39ea049bdafb342ce659ec5450b69ae"
+    },
+    {
+      "username": "yor_forger",
+      "email": "your_forger@mailfence.com",
+      "passwordHash": "88d4266fd4e6338d13b845fcf289579d209c897823b9217da3e161936f031589"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782172170503.jpg",
+      "subscriptionsAmount": 42,
+      "firstName": "Shigure",
+      "lastName": "Minadzuki",
+      "description": "The skills list we discussed above is the core of a resume, but it's not the only part. You can also tell a little about yourself in the traditional sense — this section can be added to your cover letter.",
+      "isActive": true,
+      "stack": [
+        "PostgreSQL",
+        "MongoDB"
+      ],
+      "city": "New York"
+    },
+    {
+      "id": "yor_forger",
+      "username": "yor_forger",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/yor_forger-1782180502959.jpg",
+      "subscriptionsAmount": 48,
+      "firstName": "Yor",
+      "lastName": "Forger",
+      "description": "Fullstack killa",
+      "isActive": false,
+      "stack": [
+        "TypeScript",
+        "Node.js",
+        "Java",
+        "Kubernetes",
+        "Python"
+      ],
+      "city": "Philadelphia"
+    }
+  ]
+}

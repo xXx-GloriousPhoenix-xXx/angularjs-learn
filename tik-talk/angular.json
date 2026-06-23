@@ -20,6 +20,13 @@
         },
         "@schematics/angular:interface": {
           "type": "interface"
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true,
+          "type": "directive"
         }
       },
       "root": "",

@@ -28,4 +28,25 @@ export class ProfileService {
     getAccount(id: string) {
         return this.http.get<Profile>(`${this.baseApiUrl}/account/${id}`);
     }
+
+    patchProfile(profile: Partial<Profile>) {
+        return this.http.patch<Profile>(
+            `${this.baseApiUrl}/account/me`,
+            profile
+        ).pipe(
+            tap(val => this.me.set(val))
+        )
+    }
+
+    uploadAvatar(file: File) {
+        const fd = new FormData();
+        fd.append('avatar', file);
+
+        return this.http.post<Profile>(
+            `${this.baseApiUrl}/account/me/avatar`,
+            fd
+        ).pipe(
+            tap(val => this.me.set(val))
+        );
+    }
 }

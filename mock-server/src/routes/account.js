@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const { users }           = require('../utils/tokens');
-const { generateProfile } = require('../data/profiles');
+const { generateProfile, getOrCreateProfile, patchProfile } = require('../data/profiles');
 const { requireAuth }     = require('../middleware/auth');
+const { uploadAvatar }    = require('../utils/avatar-upload');
 
 const router = Router();
 
@@ -55,7 +56,116 @@ router.get('/me', requireAuth, (req, res) => {
     console.debug('/account/me request');
     const user = users.get(req.username);
     if (!user) return res.status(404).json({ error: 'User not found' });
-    res.json(generateProfile(req.username));
+    res.json(getOrCreateProfile(req.username));
+});
+
+/**
+ * @openapi
+ * /account/me:
+ *   patch:
+ *     tags: [Account]
+ *     summary: Update current user's profile
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstName:   { type: string }
+ *               lastName:    { type: string }
+ *               description: { type: string }
+ *               stack:
+ *                 type: array
+ *                 items: { type: string }
+ *               city:        { type: string }
+ *               avatarUrl:   { type: string }
+ *     responses:
+ *       200:
+ *         description: Updated profile
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Profile' }
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Error' }
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Error' }
+ */
+router.patch('/me', requireAuth, (req, res) => {
+    console.debug('/account/me patch request');
+    const user = users.get(req.username);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    const updated = patchProfile(req.username, req.body || {});
+    res.json(updated);
+});
+
+/**
+ * @openapi
+ * /account/me/avatar:
+ *   post:
+ *     tags: [Account]
+ *     summary: Upload (or replace) the current user's avatar image
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               avatar:
+ *                 type: string
+ *                 format: binary
+ *     responses:
+ *       200:
+ *         description: Updated profile, including the new avatarUrl
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Profile' }
+ *       400:
+ *         description: No file uploaded, or file is not an image
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Error' }
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Error' }
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Error' }
+ */
+router.post('/me/avatar', requireAuth, (req, res) => {
+    uploadAvatar.single('avatar')(req, res, (err) => {
+        if (err) {
+            console.error('Avatar upload error:', err.message);
+            return res.status(400).json({ error: err.message });
+        }
+
+        const user = users.get(req.username);
+        if (!user) return res.status(404).json({ error: 'User not found' });
+
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded (expected field name "avatar")' });
+        }
+
+        const avatarUrl = `${req.protocol}://${req.get('host')}/account/me/avatar/${req.file.filename}`;
+        const updated = patchProfile(req.username, { avatarUrl });
+
+        res.json(updated);
+    });
 });
 
 /**

@@ -1,9 +1,9 @@
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { AuthService } from "./services/auth.service";
-import { catchError, switchMap, throwError } from "rxjs";
+import { BehaviorSubject, Subject, catchError, filter, switchMap, take, tap, throwError } from "rxjs";
 
-let isRefreshing = false;
+let isRefreshing$ = new BehaviorSubject<boolean>(false);
 
 export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
     const authService = inject(AuthService);
@@ -17,13 +17,13 @@ export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
 
     if (!token) return next(req);
 
-    if (isRefreshing) {
+    if (isRefreshing$.value) {
         return refreshAndProceed(authService, req, next);
     }
 
     return next(addToken(req, token)).pipe(
         catchError(error => {
-            if (error.status === 403) {
+            if (error.status === 401) {
                 return refreshAndProceed(authService, req, next);
             }
             return throwError(() => error);
@@ -31,25 +31,41 @@ export const authTokenInterceptor: HttpInterceptorFn = (req, next) => {
     );
 }
 
-const refreshAndProceed = (
+const refreshAndProceed= (
     authService: AuthService,
     req: HttpRequest<any>,
     next: HttpHandlerFn
 ) => {
-    if (!isRefreshing) {
-        isRefreshing = true;
+    if (!isRefreshing$.value) {
+        isRefreshing$.next(true);
         return authService.refresh().pipe(
             switchMap(res => {
-                isRefreshing = false;
-                return next(addToken(req, res.access_token));
+                
+                return next(addToken(req, res.access_token))
+                .pipe(
+                    tap(() => isRefreshing$.next(false))
+                );
+            }),
+            catchError(error => {
+                isRefreshing$.next(false);
+                return throwError(() => error);
             })
         );
     }
 
-    return next(addToken(req, authService.access_token!));
+    if (req.url.includes('refresh')) {
+        return next(addToken(req, authService.access_token));
+    }
+
+    return isRefreshing$.pipe(
+        filter(isRefreshing => !isRefreshing),
+        switchMap(() => {
+            return next(addToken(req, authService.access_token))
+        })
+    )
 }
 
-const addToken = (req: HttpRequest<any>, token: string) => {
+const addToken = (req: HttpRequest<any>, token: string | null) => {
     return req.clone({
         setHeaders: {
             Authorization: `Bearer ${token}`

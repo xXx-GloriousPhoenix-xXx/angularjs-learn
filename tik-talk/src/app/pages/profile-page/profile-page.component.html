@@ -5,7 +5,7 @@
             [isEdit]="false"
         />
         <a class="btn edit-btn"
-            [routerLink]="['./settings']"
+            [routerLink]="['/settings']"
         >
             Edit
             <svg icon="settings" class="to-settings-icon"></svg>
@@ -38,7 +38,7 @@
     
             <h6 class="h6 mb16">Skills</h6>
             <div class="skills-wrapper mb32">
-                @for (skill of profile.stack; track skill) {
+                @for (skill of profile.stack | stackList; track skill) {
                     <div class="skill-tag">{{ skill }}</div>
                 }
             </div>

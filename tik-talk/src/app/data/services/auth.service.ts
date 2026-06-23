@@ -44,7 +44,7 @@ export class AuthService {
     refresh(): Observable<TokenResponse> {
         if (!this.refresh_token) {
             this.router.navigate(["/auth/login"]);
-            return EMPTY; 
+            return throwError(() => new Error('No refresh token available'));
         }
         
         return this.http.post<TokenResponse>(
@@ -55,7 +55,7 @@ export class AuthService {
             catchError(err => {
                 console.error('Refresh failed, logging out...', err);
                 this.logout(); 
-                return EMPTY; 
+                return throwError(() => err);
             })
         );
     }
@@ -73,8 +73,8 @@ export class AuthService {
     }
 
     removeToken() {
-        this.cookieService.delete('access_token');
-        this.cookieService.delete('refresh_token');
+        this.cookieService.delete('access_token', '/');
+        this.cookieService.delete('refresh_token', '/');
         this.access_token = null;
         this.refresh_token = null;
     }
