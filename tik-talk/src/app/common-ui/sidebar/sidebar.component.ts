@@ -2,13 +2,13 @@ import { Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { SvgIconComponent } from "../svg-icon/svg-icon.component";
 import { SubscriberCardComponent } from "./subscriber-card/subscriber-card.component";
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterLinkActive } from "@angular/router";
 import { ProfileService } from '../../data/services/profile.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-sidebar',
-    imports: [SvgIconComponent, RouterLink, AsyncPipe, SubscriberCardComponent],
+    imports: [SvgIconComponent, RouterLink, AsyncPipe, SubscriberCardComponent, RouterLinkActive],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.scss',
 })
@@ -31,7 +31,7 @@ export class SidebarComponent {
         {
             label: 'Search',
             icon: 'search',
-            link: '/'
+            link: 'search'
         }
     ];
 
