@@ -20,6 +20,13 @@ function randomSubset(arr, min = 2, max = 5) {
     return [...arr].sort(() => Math.random() - 0.5).slice(0, count);
 }
 
+function randomDateWithinLastYears(years = 3) {
+    const now = Date.now();
+    const past = now - years * 365 * 24 * 60 * 60 * 1000;
+    const ts = past + Math.random() * (now - past);
+    return new Date(ts).toISOString().slice(0, 10); // YYYY-MM-DD
+}
+
 // Random, throwaway profile generator — used for /test_account, /subscribers, /:id.
 // These are NOT persisted.
 function generateProfile(id) {
@@ -36,6 +43,7 @@ function generateProfile(id) {
         isActive:            Math.random() > 0.3,
         stack:               randomSubset(allStacks),
         city:                randomItem(cities),
+        registerDate:        randomDateWithinLastYears(),
     };
 }
 
@@ -100,4 +108,115 @@ module.exports = {
     generateProfile,
     getOrCreateProfile,
     patchProfile,
+    getSearchPool,
+    filterProfiles,
 };
+
+/**
+ * Returns a stable pool of "other users" profiles for search/browse purposes.
+ * Generated once and persisted to users.json under "searchPool", so that
+ * results stay consistent across requests/filters instead of being
+ * regenerated randomly on every call.
+ */
+function getSearchPool(size = 200) {
+    const db = readDb();
+
+    if (!db.searchPool || db.searchPool.length === 0) {
+        db.searchPool = Array.from({ length: size }, (_, i) => generateProfile(i + 1));
+        writeDb(db);
+    }
+
+    return db.searchPool;
+}
+
+/**
+ * Returns the combined list of searchable profiles: real registered users
+ * (from "profiles") plus the random filler pool (from "searchPool").
+ * Deduplicated by username — a real profile always wins over a pool entry
+ * with the same username (shouldn't normally happen, but just in case).
+ */
+function getAllSearchableProfiles() {
+    const db = readDb();
+    const pool = getSearchPool();
+
+    const seen = new Set();
+    const combined = [];
+
+    for (const profile of db.profiles) {
+        if (!seen.has(profile.username)) {
+            seen.add(profile.username);
+            combined.push(profile);
+        }
+    }
+    for (const profile of pool) {
+        if (!seen.has(profile.username)) {
+            seen.add(profile.username);
+            combined.push(profile);
+        }
+    }
+
+    return combined;
+}
+
+/**
+ * Filters all searchable profiles (real users + the random pool) by the
+ * given criteria and returns a paginated slice.
+ *
+ * params:
+ *   name         - matched against firstName, lastName, OR username (case-insensitive, substring)
+ *   city         - case-insensitive substring match
+ *   stack        - comma-separated string or array; profile must contain ALL requested skills
+ *   registerDate - exact date match (YYYY-MM-DD)
+ *   pageNum, pageSize - pagination
+ */
+function filterProfiles(params = {}) {
+    const pool = getAllSearchableProfiles();
+
+    const name         = (params.name || '').trim().toLowerCase();
+    const city         = (params.city || '').trim().toLowerCase();
+    const registerDate = (params.registerDate || '').trim();
+    const requestedStack = normalizeStack(params.stack || []);
+    const excludeUsername = (params.excludeUsername || '').trim().toLowerCase();
+
+    let results = pool.filter(profile => {
+        if (excludeUsername && (profile.username || '').toLowerCase() === excludeUsername) {
+            return false;
+        }
+
+        if (name) {
+            const matchesName =
+                (profile.firstName || '').toLowerCase().includes(name) ||
+                (profile.lastName || '').toLowerCase().includes(name) ||
+                (profile.username || '').toLowerCase().includes(name);
+            if (!matchesName) return false;
+        }
+
+        if (city && !(profile.city || '').toLowerCase().includes(city)) {
+            return false;
+        }
+
+        if (registerDate && profile.registerDate !== registerDate) {
+            return false;
+        }
+
+        if (requestedStack.length > 0) {
+            const profileStackLower = (profile.stack || []).map(s => s.toLowerCase());
+            const hasAllSkills = requestedStack.every(skill =>
+                profileStackLower.includes(skill.toLowerCase())
+            );
+            if (!hasAllSkills) return false;
+        }
+
+        return true;
+    });
+
+    const pageNum  = Math.max(1, parseInt(params.pageNum, 10) || 1);
+    const pageSize = Math.min(100, Math.max(1, parseInt(params.pageSize, 10) || 10));
+    const itemCount = results.length;
+    const pageCount = Math.max(1, Math.ceil(itemCount / pageSize));
+
+    const start = (pageNum - 1) * pageSize;
+    const items = results.slice(start, start + pageSize);
+
+    return { items, itemCount, pageNum, pageSize, pageCount };
+}

@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { users }           = require('../utils/tokens');
-const { generateProfile, getOrCreateProfile, patchProfile } = require('../data/profiles');
+const { generateProfile, getOrCreateProfile, patchProfile, filterProfiles } = require('../data/profiles');
 const { requireAuth }     = require('../middleware/auth');
 const { uploadAvatar }    = require('../utils/avatar-upload');
 
@@ -166,6 +166,66 @@ router.post('/me/avatar', requireAuth, (req, res) => {
 
         res.json(updated);
     });
+});
+
+/**
+ * @openapi
+ * /account/accounts:
+ *   get:
+ *     tags: [Account]
+ *     summary: Search/filter profiles
+ *     description: |
+ *       The "name" param matches against firstName, lastName, OR username
+ *       (case-insensitive substring match on any of the three).
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: name
+ *         schema: { type: string }
+ *         description: Matches firstName, lastName, or username (substring, case-insensitive)
+ *       - in: query
+ *         name: city
+ *         schema: { type: string }
+ *       - in: query
+ *         name: registerDate
+ *         schema: { type: string, format: date }
+ *         description: Exact match, format YYYY-MM-DD
+ *       - in: query
+ *         name: stack
+ *         schema: { type: string }
+ *         description: Comma-separated list of required skills
+ *       - in: query
+ *         name: pageNum
+ *         schema: { type: integer, default: 1, minimum: 1 }
+ *       - in: query
+ *         name: pageSize
+ *         schema: { type: integer, default: 10, minimum: 1, maximum: 100 }
+ *     responses:
+ *       200:
+ *         description: Paginated, filtered profiles
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 items:
+ *                   type: array
+ *                   items: { $ref: '#/components/schemas/Profile' }
+ *                 itemCount: { type: integer, example: 42 }
+ *                 pageNum:   { type: integer, example: 1 }
+ *                 pageSize:  { type: integer, example: 10 }
+ *                 pageCount: { type: integer, example: 5 }
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema: { $ref: '#/components/schemas/Error' }
+ */
+router.get('/accounts', requireAuth, (req, res) => {
+    console.debug('/account/accounts request', req.query);
+    const result = filterProfiles(req.query);
+    res.json(result);
 });
 
 /**

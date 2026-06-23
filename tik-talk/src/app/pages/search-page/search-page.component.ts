@@ -1,24 +1,39 @@
 import { Component, inject, signal } from '@angular/core';
 import { ProfileService } from '../../data/services/profile.service';
-import { Profile } from '../../data/interfaces/profile.interface';
 import { ProfileCardComponent } from '../../common-ui/profile-card/profile-card';
+import { ProfileFiltersComponent } from "./profile-filters/profile-filters.component";
 
 @Component({
     selector: 'app-search-page',
     imports: [
         ProfileCardComponent,
+        ProfileFiltersComponent
     ],
     templateUrl: './search-page.component.html',
     styleUrl: './search-page.component.scss',
 })
 export class SearchPageComponent {
-    protected readonly title = signal('tik-talk');
     profileService = inject(ProfileService);
-    profiles = signal<Profile[]>([]);
-    constructor() {
-        this.profileService.getTestAccount()
-            .subscribe(val => {
-                this.profiles.set(val);
-            });
+    profiles = this.profileService.filteredProfiles;
+
+    pageNum = signal(1);
+    private currentFilters: Record<string, any> = {};
+
+    onFiltersChange(filters: Record<string, any>) {
+        this.currentFilters = filters;
+        this.pageNum.set(1);
+        this.search();
+    }
+
+    goToPage(page: number) {
+        this.pageNum.set(page);
+        this.search();
+    }
+
+    private search() {
+        this.profileService.filterProfiles({
+            ...this.currentFilters,
+            pageNum: this.pageNum(),
+        }).subscribe();
     }
 }

@@ -1,0 +1,30 @@
+.profile-search-form {
+    border: 1px solid var(--light-color);
+    background: var(--dark-color);
+    padding: 16px 20px;
+    box-shadow: 4px 4px 0 0 var(--shadow-color);
+
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr) 46px;
+    gap: 40px
+}
+
+.filter-btn {
+    width: 46px;
+    height: 46px;
+    padding: 14px;
+    color: var(--light-color);
+
+    .filter-icon {
+        width: 18px;
+        height: 18px;
+        transition: 200ms;
+    }
+
+    &:hover {
+        .filter-icon {
+            color: var(--primary-color);
+        }
+    }
+}
