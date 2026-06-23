@@ -10,7 +10,23 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "skipTests": true,
+          "type": "component"
+        },
+        "@schematics/angular:service": {
+          "skipTests": true,
+          "type": "service"
+        },
+        "@schematics/angular:interface": {
+          "type": "interface"
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true,
+          "type": "directive"
         }
       },
       "root": "",

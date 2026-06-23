@@ -1,0 +1,64 @@
+@if (me$ | async; as me) {
+    <app-profile-header
+        [profile]="me"
+        [isEdit]="true"
+    />
+
+    <form
+        class="profile-form__wrapper"
+        [formGroup]="form"
+    >
+        <div class="profile-form">
+            <div class="two-columns">
+                <label class="tt-form-label">
+                    <span class="tt-form-label__text">First Name</span>
+                    <input type="text" class="tt-form-input" formControlName="firstName">
+                </label>
+        
+                <label class="tt-form-label">
+                    <span class="tt-form-label__text">Last Name</span>
+                    <input type="text" class="tt-form-input" formControlName="lastName">
+                </label>
+            </div>
+        
+            <label class="tt-form-label">
+                <span class="tt-form-label__text">Username</span>
+                <input type="text" class="tt-form-input" formControlName="username">
+            </label>
+        
+            <label class="tt-form-label">
+                <span class="tt-form-label__text">About me</span>
+                <textarea
+                    formControlName="description"
+                    class="tt-form-input tt-textarea"
+                    rows="4"
+                ></textarea>
+            </label>
+
+            <label class="tt-form-label">
+                <span class="tt-form-label__text mb8">Avatar</span>
+                <app-avatar-upload [initialUrl]="me?.avatarUrl ?? null"/>
+            </label>
+        
+            <label class="tt-form-label">
+                <span class="tt-form-label__text">Skills</span>
+                <input type="text" class="tt-form-input" formControlName="stack">
+            </label>
+
+        </div>
+        <div class="profile-control">
+            <div class="profile-control-item__wrapper icon__wrapper">
+                <button class="btn inverse" (click)="onDelete()">
+                    <svg icon="delete" class="control-icon delete-icon"></svg>
+                </button>
+                <button class="btn inverse" (click)="onLogout()">
+                    <svg icon="logout" class="control-icon"></svg>
+                </button>
+            </div>
+            <div class="profile-control-item__wrapper">
+                <button class="btn inverse" (click)="onCancel()">Cancel</button>
+                <button class="btn" (click)="onSave()">Save</button>
+            </div>
+        </div>
+    </form>
+}

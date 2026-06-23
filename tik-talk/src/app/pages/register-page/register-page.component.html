@@ -1,0 +1,30 @@
+<form 
+    class="register-form"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+>
+    <h1 class="h1 mb60">Sign up</h1>
+    <label class="tt-control-label mb16">
+        Telegram username
+        <input 
+            formControlName = "username"
+            class="tt-input" type="text" placeholder="Enter login">
+    </label>
+    <label class="tt-control-label mb16">
+        Email
+        <input 
+            formControlName = "email"
+            class="tt-input" type="email" placeholder="Enter email">
+    </label>
+    <label class="tt-control-label mb32">
+        Password
+        <input 
+            formControlName = "password"
+            class="tt-input" type="password" placeholder="Enter password">
+    </label>
+    <button class="btn btn-shadow mb16" type="submit">Sign up</button>
+    <p class="tt-tip">
+        Have an account already?
+        <a class="tt-link" routerLink="/auth/login">Log in</a>
+    </p>
+</form>

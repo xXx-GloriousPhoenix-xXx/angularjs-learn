@@ -1,0 +1,57 @@
+<img 
+    src="/assets/svg/logo-small.svg"
+    alt="logo"
+    class="ml16 mb20"
+>
+<nav>
+    <ul class="main-menu-list">
+        @for (item of menuItems; track item.label) {
+            <li>
+                <a
+                    class="menu-item"
+                    [routerLink]="[item.link]"
+                    routerLinkActive="active"
+                >
+                    <svg [icon]="item.icon" class="menu-item-icon"></svg>
+                    <span>{{ item.label }}</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>
+
+<p class="medium-text mb20 mt20">Subscribers</p>
+
+@for (profile of subscribers$ | async; track profile.id) {
+    <app-subscriber-card
+        [profile]="profile"
+    ></app-subscriber-card>
+}
+
+<div class="mt20 to-subscribers">
+    <a
+        [routerLink]="['/subscribers']"
+        class="to-subscribers-link medium-text"
+    >All subscribers</a>
+    <svg icon="arrow" class="to-subscribers-icon"></svg>
+</div>
+
+<footer class="sidebar__footer">
+    @if (me(); as me) {
+        <img
+            class="me-icon"
+            [src]="me.avatarUrl ? me.avatarUrl : '/assets/images/avatar-placeholder.png'"
+            [alt]="me.username"
+        >
+        
+        <a [routerLink]="['/profile', 'me']"
+            class="sidebar-profile"
+        >
+            <p class="me-username">{{ me.username }}</p>
+            <svg icon="settings" class="sidebar-settings-icon"></svg>
+        </a>
+    }
+    @else {
+
+    }
+</footer>
