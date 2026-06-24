@@ -1,13 +1,15 @@
 :host {
-    display: grid;
-    gap: 20px;
+    display: flex;
+    flex-flow: column nowrap;
     padding: 24px;
+    height: 100%;
 }
 
 .profile-list {
     display: grid;
     grid-template-rows: auto;
     gap: 8px;
+    height: max-content;
 }
 
 .pagination {
@@ -15,7 +17,7 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
-    margin-top: 24px;
+    margin-top: auto;
 
     .btn {
         width: auto;

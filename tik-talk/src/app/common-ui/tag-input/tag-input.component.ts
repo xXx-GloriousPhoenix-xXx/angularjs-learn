@@ -1,9 +1,10 @@
 import { Component, Input, forwardRef, signal } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { SvgIconComponent } from '../svg-icon/svg-icon.component';
 
 @Component({
     selector: 'app-tag-input',
-    standalone: true,
+    imports: [SvgIconComponent],
     templateUrl: './tag-input.component.html',
     styleUrl: './tag-input.component.scss',
     providers: [{

@@ -1,6 +1,6 @@
 <app-profile-filters (filtersChange)="onFiltersChange($event)" />
 
-<div class="profile-list">
+<div class="profile-list mt20 mb24">
     @for (profile of profiles().items; track profile.id) {
         <app-profile-card
             [profile]="profile"

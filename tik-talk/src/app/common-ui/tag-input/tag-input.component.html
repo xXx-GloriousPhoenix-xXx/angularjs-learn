@@ -4,13 +4,15 @@
     <div class="tag-input__wrapper">
         @for (tag of tagList(); track tag) {
             <div class="skill-tag">
-                {{ tag }}
                 <button
                     type="button"
                     class="skill-tag__remove"
                     (click)="removeTag(tag)"
                     [disabled]="disabled()"
-                >×</button>
+                >
+                    <svg icon="remove" class="remove-icon"></svg>
+                </button>
+                {{ tag }}
             </div>
         }
         <input

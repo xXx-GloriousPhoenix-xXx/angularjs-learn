@@ -12,7 +12,7 @@ export class ProfileService {
     filteredProfiles = signal<Pagable<Profile>>({
         items: [],
         itemCount: 0,
-        pageSize: 10,
+        pageSize: 3,
         pageCount: 1,
         pageNum: 1
     });

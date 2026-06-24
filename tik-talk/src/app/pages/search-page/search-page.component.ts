@@ -3,6 +3,8 @@ import { ProfileService } from '../../data/services/profile.service';
 import { ProfileCardComponent } from '../../common-ui/profile-card/profile-card';
 import { ProfileFiltersComponent } from "./profile-filters/profile-filters.component";
 
+const PAGE_SIZE = 3;
+
 @Component({
     selector: 'app-search-page',
     imports: [
@@ -34,6 +36,7 @@ export class SearchPageComponent {
         this.profileService.filterProfiles({
             ...this.currentFilters,
             pageNum: this.pageNum(),
+            pageSize: PAGE_SIZE
         }).subscribe();
     }
 }

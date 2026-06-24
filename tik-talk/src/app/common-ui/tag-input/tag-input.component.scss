@@ -42,18 +42,24 @@
     border: none;
     background: none;
     cursor: pointer;
-    color: var(--red-accent-color);
+    color: var(--light-color);
     font-size: 14px;
     line-height: 1;
     padding: 0;
-    margin-left: 4px;
-    margin-bottom: 1px;
+    margin-right: 4px;
+    transition: 200ms;
 
     &:disabled {
         cursor: not-allowed;
     }
 
+    .remove-icon {
+        width: 16px;
+        height: 16px;
+    }
+
     &:hover {
-        color: var(--light-color);
+        color: var(--red-accent-color);
     }
 }
+
