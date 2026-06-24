@@ -2,25 +2,10 @@
     class="profile-search-form"
     [formGroup]="searchForm"
 >
-    <label class="tt-form-label">
-        <span class="tt-form-label__text">Name</span>
-        <input type="text" class="tt-form-input" formControlName="name">
-    </label>
-
-    <label class="tt-form-label">
-        <span class="tt-form-label__text">Register Date</span>
-        <input type="text" class="tt-form-input" formControlName="registerDate">
-    </label>
-
-    <label class="tt-form-label">
-        <span class="tt-form-label__text">City</span>
-        <input type="text" class="tt-form-input" formControlName="city">
-    </label>
-
-    <label class="tt-form-label">
-        <span class="tt-form-label__text">Skills</span>
-        <input type="text" class="tt-form-input" formControlName="stack">
-    </label>
+    <app-form-field label="Name" formControlName="name" />
+    <app-form-field label="Register Date" formControlName="registerDate" />
+    <app-form-field label="City" formControlName="city" />
+    <app-form-field label="Skills" formControlName="stack" />
 
     <button class="btn filter-btn">
         <svg icon="filter" class="filter-icon"></svg>

@@ -1,0 +1,23 @@
+<label class="tt-form-label">
+    <span class="tt-form-label__text">{{ label }}</span>
+
+    @if (type === 'textarea') {
+        <textarea
+            class="tt-form-input tt-textarea"
+            [rows]="rows"
+            [value]="value"
+            [disabled]="disabled"
+            (input)="onInput($any($event.target).value)"
+            (blur)="onBlur()"
+        ></textarea>
+    } @else {
+        <input
+            type="text"
+            class="tt-form-input"
+            [value]="value"
+            [disabled]="disabled"
+            (input)="onInput($any($event.target).value)"
+            (blur)="onBlur()"
+        >
+    }
+</label>

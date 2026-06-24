@@ -3,10 +3,11 @@ import { SvgIconComponent } from "../../../common-ui/svg-icon/svg-icon.component
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormFieldComponent } from '../../../common-ui/form-field/form-field.component';
 
 @Component({
     selector: 'app-profile-filters',
-    imports: [SvgIconComponent, ReactiveFormsModule],
+    imports: [SvgIconComponent, ReactiveFormsModule, FormFieldComponent],
     templateUrl: './profile-filters.component.html',
     styleUrl: './profile-filters.component.scss',
 })

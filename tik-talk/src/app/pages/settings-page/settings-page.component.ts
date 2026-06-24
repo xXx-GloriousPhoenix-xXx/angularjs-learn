@@ -11,12 +11,12 @@ import { StackListPipe } from '../../common-ui/pipes/stack-list-pipe';
 import { AvatarUploadComponent } from "./avatar-upload/avatar-upload.component";
 import { SvgIconComponent } from "../../common-ui/svg-icon/svg-icon.component";
 import { AuthService } from '../../data/services/auth.service';
-import { ConfirmDialogService } from '../../data/services/confirm-dialog.service';
 import { Router } from '@angular/router';
+import { FormFieldComponent } from '../../common-ui/form-field/form-field.component';
 
 @Component({
     selector: 'app-settings-page',
-    imports: [ProfileHeaderComponent, AsyncPipe, ReactiveFormsModule, AvatarUploadComponent, SvgIconComponent],
+    imports: [ProfileHeaderComponent, AsyncPipe, ReactiveFormsModule, AvatarUploadComponent, SvgIconComponent, FormFieldComponent],
     templateUrl: './settings-page.component.html',
     styleUrl: './settings-page.component.scss',
 })
