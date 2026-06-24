@@ -37,8 +37,6 @@
       "description": "Fullstack killa",
       "isActive": false,
       "stack": [
-        "TypeScript",
-        "Node.js",
         "Java",
         "Kubernetes",
         "Python"

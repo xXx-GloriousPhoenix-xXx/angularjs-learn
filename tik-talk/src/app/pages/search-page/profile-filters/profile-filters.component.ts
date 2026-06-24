@@ -4,10 +4,11 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, startWith } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormFieldComponent } from '../../../common-ui/form-field/form-field.component';
+import { TagInputComponent } from "../../../common-ui/tag-input/tag-input.component";
 
 @Component({
     selector: 'app-profile-filters',
-    imports: [SvgIconComponent, ReactiveFormsModule, FormFieldComponent],
+    imports: [SvgIconComponent, ReactiveFormsModule, FormFieldComponent, TagInputComponent],
     templateUrl: './profile-filters.component.html',
     styleUrl: './profile-filters.component.scss',
 })

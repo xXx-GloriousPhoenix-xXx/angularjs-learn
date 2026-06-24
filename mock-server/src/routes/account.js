@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { users }           = require('../utils/tokens');
-const { generateProfile, getOrCreateProfile, patchProfile, filterProfiles } = require('../data/profiles');
+const { generateProfile, getOrCreateProfile, patchProfile, filterProfiles } = require('../models/profiles');
 const { requireAuth }     = require('../middleware/auth');
 const { uploadAvatar }    = require('../utils/avatar-upload');
 

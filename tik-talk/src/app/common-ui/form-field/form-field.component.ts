@@ -3,7 +3,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
     selector: 'app-form-field',
-    imports: [],
     standalone: true,
     templateUrl: './form-field.component.html',
     styleUrl: './form-field.component.scss',

@@ -1,1 +1,27 @@
-<p>tag-input works!</p>
+<div class="tt-form-tag-input">
+    <span class="tt-form-tag-input__text">{{ label }}</span>
+
+    <div class="tag-input__wrapper">
+        @for (tag of tagList(); track tag) {
+            <div class="skill-tag">
+                {{ tag }}
+                <button
+                    type="button"
+                    class="skill-tag__remove"
+                    (click)="removeTag(tag)"
+                    [disabled]="disabled()"
+                >×</button>
+            </div>
+        }
+        <input
+            type="text"
+            class="tt-form-tag-input__input"
+            [disabled]="disabled()"
+            [value]="draft()"
+            (input)="onInput($any($event.target).value)"
+            (blur)="onBlur()"
+            (keydown.enter)="onEnter($event)"
+            (keydown.backspace)="onBackspace($event)"
+        >
+    </div>
+</div>

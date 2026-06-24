@@ -13,10 +13,11 @@ import { SvgIconComponent } from "../../common-ui/svg-icon/svg-icon.component";
 import { AuthService } from '../../data/services/auth.service';
 import { Router } from '@angular/router';
 import { FormFieldComponent } from '../../common-ui/form-field/form-field.component';
+import { TagInputComponent } from "../../common-ui/tag-input/tag-input.component";
 
 @Component({
     selector: 'app-settings-page',
-    imports: [ProfileHeaderComponent, AsyncPipe, ReactiveFormsModule, AvatarUploadComponent, SvgIconComponent, FormFieldComponent],
+    imports: [ProfileHeaderComponent, AsyncPipe, ReactiveFormsModule, AvatarUploadComponent, SvgIconComponent, FormFieldComponent, TagInputComponent],
     templateUrl: './settings-page.component.html',
     styleUrl: './settings-page.component.scss',
 })
@@ -44,7 +45,7 @@ export class SettingsPageComponent {
         if (!profile) return;
         this.form.patchValue({
             ...profile,
-            stack: this.stackStringPipe.transform(profile.stack),
+            stack: profile.stack ?? [],
         });
     }
 
@@ -54,7 +55,7 @@ export class SettingsPageComponent {
         lastName: this.fb.nonNullable.control('', Validators.required),
         username: this.fb.nonNullable.control('', { validators: Validators.required }),
         description: this.fb.nonNullable.control(''),
-        stack: this.fb.nonNullable.control(''),
+        stack: this.fb.nonNullable.control<string[]>([]),
     });
 
     async onSave() {
@@ -76,7 +77,7 @@ export class SettingsPageComponent {
             firstName: raw.firstName,
             lastName: raw.lastName,
             description: raw.description,
-            stack: this.stackListPipe.transform(raw.stack),
+            stack: raw.stack,
         };
 
         await firstValueFrom(this.profileService.patchProfile(payload));
