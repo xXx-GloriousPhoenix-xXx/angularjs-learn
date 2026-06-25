@@ -23,7 +23,6 @@ export class ProfilePageComponent {
         map(params => params['id'] || 'me')
     );
 
-    // Триггер для перезагрузки профиля
     private refreshProfile$ = new Subject<void>();
 
     profile = toSignal(
@@ -51,10 +50,13 @@ export class ProfilePageComponent {
                     startWith(null),
                     switchMap(() => {
                         if (id === 'me') {
-                            const me = this.profileService.me();
-                            if (!me) return of([]);
-                            return this.profileService.getSubscribers(me.username, 100)
-                                .pipe(map(page => page.items));
+                            return this.me$.pipe(
+                                switchMap(me => {
+                                    if (!me) return of([]);
+                                    return this.profileService.getSubscribers(me.username, 100)
+                                        .pipe(map(page => page.items));
+                                })
+                            );
                         } else {
                             return this.profileService.getSubscribers(id, 100)
                                 .pipe(map(page => page.items));

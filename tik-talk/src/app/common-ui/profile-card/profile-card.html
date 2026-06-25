@@ -19,7 +19,12 @@
             }
         </div>
         <div class="profile-card__action-btns">
-            <button class="btn">Subscribe</button>
+            <button
+                class="btn"
+                (click)="onToggleSubscribe()"
+            >
+                {{ isSubscribed() ? 'Unsubscribe' : 'Subscribe' }}
+            </button>
         </div>
     </div>
 }

@@ -2,5 +2,9 @@
   {
     "followerUsername": "yor_forger",
     "followingUsername": "abcd"
+  },
+  {
+    "followerUsername": "abcd",
+    "followingUsername": "yor_forger"
   }
 ]

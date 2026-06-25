@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Service, computed, inject, signal } from '@angular/core';
 import { Profile } from '../interfaces/profile.interface';
-import { map, switchMap, tap } from 'rxjs';
+import { Subject, map, of, startWith, switchMap, tap } from 'rxjs';
 import { Pagable } from '../interfaces/pagable.interface';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
@@ -28,6 +28,7 @@ export class ProfileService {
         return profile.firstName.trim() !== ''
             && profile.lastName.trim() !== '';
     });
+    private mySubscribersRefresh$ = new Subject<void>();
     subscribers = toSignal(
         this.route.params.pipe(
             switchMap(() => this.getSubscribersShortList(5))
@@ -35,6 +36,24 @@ export class ProfileService {
         { initialValue: [] }
     );
     subscribersCount = computed(() => this.subscribers().length);
+    refreshMySubscribers() {
+        this.mySubscribersRefresh$.next();
+    }
+    mySubscribers = toSignal(
+        this.mySubscribersRefresh$.pipe(
+            startWith(null),
+            switchMap(() => {
+                const me = this.me();
+                if (!me) return of([]);
+                return this.getSubscribers(me.username, 5).pipe(
+                    map(page => page.items)
+                );
+            })
+        ),
+        { initialValue: [] }
+    );
+    
+    mySubscribersCount = computed(() => this.mySubscribers().length);
 
     getMe() {
         return this.http.get<Profile>(`${this.baseApiUrl}/account/me`)

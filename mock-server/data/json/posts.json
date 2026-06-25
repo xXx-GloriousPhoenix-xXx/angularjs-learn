@@ -94,7 +94,7 @@
       "yor_forger"
     ],
     "createdAt": "2026-06-25T08:15:58.010Z",
-    "repliesCount": 3
+    "repliesCount": 4
   },
   {
     "id": "post-1782375384209-373",
@@ -152,10 +152,11 @@
     "content": "Hey, good job",
     "parentId": "post-1782375358010-539",
     "likedBy": [
-      "yor_forger"
+      "yor_forger",
+      "abcd"
     ],
     "createdAt": "2026-06-25T09:28:09.568Z",
-    "repliesCount": 1
+    "repliesCount": 2
   },
   {
     "id": "post-1782384328401-838",
@@ -186,6 +187,31 @@
     "parentId": "post-1782379689568-697",
     "likedBy": [],
     "createdAt": "2026-06-25T10:45:28.401Z",
+    "repliesCount": 0
+  },
+  {
+    "id": "post-1782385872546-148",
+    "authorId": "abcd",
+    "author": {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Test account ABCD",
+      "isActive": true,
+      "stack": [
+        "ML",
+        "ComputerVision"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "Ty <3",
+    "parentId": "post-1782379689568-697",
+    "likedBy": [],
+    "createdAt": "2026-06-25T11:11:12.547Z",
     "repliesCount": 0
   }
 ]
