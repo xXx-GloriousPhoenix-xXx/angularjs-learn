@@ -26,6 +26,14 @@ function filterProfiles(params = {}) {
     const excludeUsername = (params.excludeUsername || '').trim().toLowerCase();
 
     const results = allProfiles.filter(profile => {
+        if (!profile.firstName || !profile.lastName) {
+            return false;
+        }
+
+        if (!profile.stack || profile.stack.length === 0) {
+            return false;
+        }
+
         if (excludeUsername && (profile.username || '').toLowerCase() === excludeUsername) {
             return false;
         }
