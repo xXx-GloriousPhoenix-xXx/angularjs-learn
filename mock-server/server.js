@@ -7,6 +7,7 @@ const swaggerUi = require('swagger-ui-express');
 const authRoutes = require('./src/routes/auth.routes');
 const accountRoutes = require('./src/routes/account.routes');
 const postRoutes = require('./src/routes/post.routes');
+const subscriptionRoutes = require('./src/routes/subscription.routes');
 const { IMAGES_DIR } = require('./src/utils/avatar-upload');
 
 const app = express();
@@ -85,20 +86,29 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/auth', authRoutes);
 app.use('/account', accountRoutes);
 app.use('/posts', postRoutes);
+app.use('/subscribers', subscriptionRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
     console.log(`  Swagger UI: http://localhost:${PORT}/docs`);
+
     console.log(`  POST   http://localhost:${PORT}/auth/register`);
     console.log(`  POST   http://localhost:${PORT}/auth/login`);
     console.log(`  POST   http://localhost:${PORT}/auth/refresh`);
     console.log(`  POST   http://localhost:${PORT}/auth/logout`);
+
     console.log(`  GET    http://localhost:${PORT}/account/me            (auth required)`);
     console.log(`  PATCH  http://localhost:${PORT}/account/me            (auth required)`);
     console.log(`  POST   http://localhost:${PORT}/account/me/avatar     (auth required)`);
     console.log(`  GET    http://localhost:${PORT}/account/accounts      (auth required)`);
+
     console.log(`  GET    http://localhost:${PORT}/posts                 (auth required)`);
     console.log(`  POST   http://localhost:${PORT}/posts                 (auth required)`);
     console.log(`  POST   http://localhost:${PORT}/posts/:id/like        (auth required)`);
     console.log(`  DELETE http://localhost:${PORT}/posts/:id/like        (auth required)`);
+
+    console.log(`  GET    http://localhost:${PORT}/subscribers           (auth required)`);
+    console.log(`  GET    http://localhost:${PORT}/subscribers/following (auth required)`);
+    console.log(`  POST   http://localhost:${PORT}/subscribers/:username (auth required)`);
+    console.log(`  DELETE http://localhost:${PORT}/subscribers/:username (auth required)`);
 });
