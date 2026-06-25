@@ -58,16 +58,27 @@ function paginate(items, pageNum, pageSize) {
 /**
  * Gets posts matching a parentId (null = top-level feed), newest first.
  */
-function getPosts({ parentId = null, pageNum = 1, pageSize = 10, currentUsername = null }) {
+function getPosts({
+    parentId = null,
+    pageNum = 1,
+    pageSize = 10,
+    currentUsername = null,
+    authorUsername = null
+}) {
     const normalizedParentId = parentId === undefined || parentId === 'null' ? null : parentId;
 
-    const matching = postRepository
+    let matching = postRepository
         .findByParentId(normalizedParentId)
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
+    if (authorUsername) {
+        matching = matching.filter(post =>
+            post.author && post.author.username === authorUsername
+        );
+    }
+
     const page = paginate(matching, pageNum, pageSize);
     page.items = page.items.map(post => withLikeState(post, currentUsername));
-
     return page;
 }
 

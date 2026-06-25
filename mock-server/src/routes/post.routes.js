@@ -10,6 +10,7 @@ router.get('/', requireAuth, (req, res) => {
         pageNum: req.query.pageNum,
         pageSize: req.query.pageSize,
         currentUsername: req.username,
+        authorUsername: req.query.authorUsername || null,
     });
 
     res.json(result);

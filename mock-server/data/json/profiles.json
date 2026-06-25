@@ -24,13 +24,16 @@
   {
     "id": "abcd",
     "username": "abcd",
-    "avatarUrl": null,
+    "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
     "subscriptionsAmount": 0,
     "firstName": "AB",
     "lastName": "CD",
-    "description": "",
+    "description": "Test account ABCD",
     "isActive": true,
-    "stack": [],
+    "stack": [
+      "ML",
+      "ComputerVision"
+    ],
     "city": "",
     "registerDate": "2026-06-25"
   }

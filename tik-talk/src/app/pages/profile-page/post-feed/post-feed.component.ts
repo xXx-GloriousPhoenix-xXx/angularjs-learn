@@ -1,9 +1,10 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
 import { PostInputComponent } from '../post-input/post-input.component';
 import { PostComponent } from '../post/post.component';
 import { PostService } from '../../../data/services/post.service';
 import { Post } from '../../../data/interfaces/post.interface';
 import { ProfileService } from '../../../data/services/profile.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-post-feed',
@@ -15,6 +16,7 @@ import { ProfileService } from '../../../data/services/profile.service';
 export class PostFeedComponent {
     private postService = inject(PostService);
     private profileService = inject(ProfileService);
+    private destroyRef = inject(DestroyRef);
 
     isProfileCompleted = this.profileService.isProfileCompleted;
 
@@ -24,11 +26,18 @@ export class PostFeedComponent {
     isLoading = signal(true);
  
     constructor() {
-        this.loadFeed();
+        effect(() => {
+            const username = this.profileService.me()?.username;
+            this.loadFeed(username);
+        })
     }
  
-    private loadFeed(): void {
-        this.postService.getFeed(1, 10, this.currentUsername || undefined).subscribe({
+    private loadFeed(username: string | undefined): void {
+        this.isLoading.set(true);
+
+        this.postService.getFeed(1, 10, username)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
             next: (page) => {
                 this.posts.set(page.items);
                 this.isLoading.set(false);
