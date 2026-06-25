@@ -1,2 +1,13 @@
-<app-post-input />
-<app-post />
+<app-post-input
+    (posted)="onPostCreated($event)"
+    [isRoot]="true"
+/>
+
+@if (isLoading()) {
+    <p class="feed-loading">Loading posts...</p>
+}
+@else {
+    @for (post of posts(); track post.id) {
+        <app-post [post]="post" [depth]="0" />
+    }
+}

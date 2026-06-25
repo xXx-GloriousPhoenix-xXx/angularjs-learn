@@ -5,6 +5,7 @@ const swaggerJsdoc  = require('swagger-jsdoc');
 const swaggerUi     = require('swagger-ui-express');
 const authRouter    = require('./src/routes/auth');
 const accountRouter = require('./src/routes/account');
+const postsRouter   = require('./src/routes/post');
 const { IMAGES_DIR } = require('./src/utils/avatar-upload');
 
 const app  = express();
@@ -45,6 +46,20 @@ const swaggerSpec = swaggerJsdoc({
                         city:                { type: 'string', example: 'New York' },
                     },
                 },
+                Post: {
+                    type: 'object',
+                    properties: {
+                        id:           { type: 'string', example: 'post-1719234000-42' },
+                        authorId:     { type: 'string', example: 'james_smith1' },
+                        author:       { $ref: '#/components/schemas/Profile' },
+                        content:      { type: 'string', example: 'Just shipped a new feature!' },
+                        parentId:     { type: 'string', nullable: true, example: null },
+                        likesCount:   { type: 'integer', example: 5 },
+                        isLikedByMe:  { type: 'boolean' },
+                        repliesCount: { type: 'integer', example: 3, description: 'Total replies in this thread, including nested ones' },
+                        createdAt:    { type: 'string', format: 'date-time' },
+                    },
+                },
                 TokenPair: {
                     type: 'object',
                     properties: {
@@ -68,6 +83,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/auth',    authRouter);
 app.use('/account', accountRouter);
+app.use('/posts',   postsRouter);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
@@ -81,4 +97,8 @@ app.listen(PORT, () => {
     console.log(`  POST  http://localhost:${PORT}/auth/login`);
     console.log(`  POST  http://localhost:${PORT}/auth/refresh`);
     console.log(`  POST  http://localhost:${PORT}/auth/logout`);
+    console.log(`  GET   http://localhost:${PORT}/posts                 (auth required)`);
+    console.log(`  POST  http://localhost:${PORT}/posts                 (auth required)`);
+    console.log(`  POST  http://localhost:${PORT}/posts/:id/like        (auth required)`);
+    console.log(`  DELETE http://localhost:${PORT}/posts/:id/like       (auth required)`);
 });

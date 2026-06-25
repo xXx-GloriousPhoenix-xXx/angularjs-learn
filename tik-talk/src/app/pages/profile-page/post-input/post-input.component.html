@@ -1,1 +1,25 @@
-<p>post-input works!</p>
+@if (me(); as me) {
+    <img
+        [src]="me.avatarUrl"
+        [alt]="me.username"
+        class="input-avatar"
+    >
+    <input
+        type="text"
+        [value]="comment()"
+        (input)="comment.set($any($event.target).value)"
+        placeholder="Type something"
+        class="post-input"
+        [disabled]="isSending()"
+        [class.--root]="isRoot"
+        (keydown.enter)="onSendQuick($event)"
+    >
+    <button
+        class="btn send-btn"
+        [disabled]="isSending()"
+        (click)="onSend()"
+    >
+
+        <svg icon="send" class="send-icon"></svg>
+    </button>
+}
