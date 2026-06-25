@@ -3,7 +3,7 @@ import { ProfileHeaderComponent } from "../../common-ui/profile-header/profile-h
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ProfileService } from '../../data/services/profile.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { map, switchMap } from 'rxjs';
+import { Subject, map, merge, of, startWith, switchMap } from 'rxjs';
 import { PostFeedComponent } from "./post-feed/post-feed.component";
 import { StackListPipe } from '../../common-ui/pipes/stack-list-pipe';
 
@@ -16,33 +16,90 @@ import { StackListPipe } from '../../common-ui/pipes/stack-list-pipe';
 export class ProfilePageComponent {
     profileService = inject(ProfileService);
     route = inject(ActivatedRoute);
-    
-    private routeId = toSignal(
-        this.route.params.pipe(
-            map(params => params['id'] || 'me')
-        )
+
+    private me$ = toObservable(this.profileService.me);
+
+    private profileId$ = this.route.params.pipe(
+        map(params => params['id'] || 'me')
     );
+
+    // Триггер для перезагрузки профиля
+    private refreshProfile$ = new Subject<void>();
 
     profile = toSignal(
-        this.route.params.pipe(
-            switchMap(({ id }) => {                
-                if (id === 'me' || !id) return toObservable(this.profileService.me);
-                return this.profileService.getAccount(id);
-            })
+        this.profileId$.pipe(
+            switchMap(id =>
+                this.refreshProfile$.pipe(
+                    startWith(null),
+                    switchMap(() => {
+                        if (id === 'me' || !id) {
+                            return this.me$;
+                        }
+                        return this.profileService.getAccount(id);
+                    })
+                )
+            )
         )
     );
 
+    private refreshSubs$ = new Subject<void>();
+
     subscribers = toSignal(
-        this.route.params.pipe(
-            switchMap(() => this.profileService.getSubscribersShortList(5))
+        this.profileId$.pipe(
+            switchMap(id =>
+                this.refreshSubs$.pipe(
+                    startWith(null),
+                    switchMap(() => {
+                        if (id === 'me') {
+                            const me = this.profileService.me();
+                            if (!me) return of([]);
+                            return this.profileService.getSubscribers(me.username, 100)
+                                .pipe(map(page => page.items));
+                        } else {
+                            return this.profileService.getSubscribers(id, 100)
+                                .pipe(map(page => page.items));
+                        }
+                    })
+                )
+            )
         ),
         { initialValue: [] }
     );
+
+    subscriberCount = computed(() => this.subscribers().length);
+
+    isMe = computed(() => {
+        const me = this.profileService.me();
+        const profile = this.profile();
+        return me?.username === profile?.username;
+    });
+
+    isSubscribed = computed(() => {
+        const me = this.profileService.me();
+        if (!me) return false;
+        return this.subscribers().some(sub => sub.username === me.username);
+    });
 
     hasSkills = computed(() => {
         const stack = this.profile()?.stack;
         return Array.isArray(stack) ? stack.length > 0 : !!stack;
     });
 
-    subscribersCount = computed(() => this.subscribers().length);
+    onToggleSubscribe() {
+        const profile = this.profile();
+        if (!profile) return;
+
+        const username = profile.username;
+        const action = this.isSubscribed()
+            ? this.profileService.unsubscribe(username)
+            : this.profileService.subscribe(username);
+
+        action.subscribe({
+            next: () => {
+                this.refreshSubs$.next();
+                this.refreshProfile$.next();
+            },
+            error: (err) => console.error('Subscription error', err)
+        });
+    }
 }

@@ -4,18 +4,33 @@
             [profile]="profile()!"
             [isEdit]="false"
         />
-        <a class="btn edit-btn"
-            [routerLink]="['/settings']"
-        >
-            Edit
-            <svg icon="settings" class="to-settings-icon"></svg>
-        </a>
+        @if (isMe()) {
+            <a class="btn action-btn"
+                [routerLink]="['/settings']"
+            >
+                Edit
+                <svg icon="settings" class="to-settings-icon"></svg>
+            </a>
+        }
+        @else {
+            <button
+                class="btn action-btn"
+                (click)="onToggleSubscribe()"
+            >
+                {{ isSubscribed() ? 'Unsubscribe' : 'Subscribe' }}
+            </button>
+        }
     </header>
     <main class="profile-page__body">
-        <app-post-feed />
+        <app-post-feed
+            [profile]="profile()!"
+        />
         
         <div class="about-me">
-            <h6 class="h6 mb16">Subscribers</h6>
+            <div class="mb16 subscriber-text__wrapper">
+                <h6 class="h6">Subscribers</h6>
+                <span class="subscriber-counter">{{ subscriberCount() }}</span>
+            </div>
             <div class="subscribers-wrapper mb32">
                 @for (subscriber of subscribers(); track subscriber.id) {
                     <a class="to-subscriber-avatar-btn"
@@ -27,16 +42,15 @@
                             class="subscriber-avatar-icon"
                         >
                     </a>
+                    <div class="to-subscribers-search-wrapper">
+                        <a class="to-subscribers-search-btn"
+                            [routerLink]="['/search']"
+                        ></a>
+                    </div>
                 }
                 @empty {
                     <p class="medium-text fallback-text">No subscribers yet</p>
                 }
-
-                <div class="to-subscribers-search-wrapper">
-                    <a class="to-subscribers-search-btn"
-                        [routerLink]="['/search']"
-                    ></a>
-                </div>
             </div>
     
             <h6 class="h6 mb16">Skills</h6>

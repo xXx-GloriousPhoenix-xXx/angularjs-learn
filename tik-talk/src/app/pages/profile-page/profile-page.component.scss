@@ -17,7 +17,7 @@
     height: 16px;
 }
 
-.edit-btn {
+.action-btn {
     width: 190px;
     display: flex;
     align-items: center;
@@ -110,4 +110,24 @@
     display: flex;
     align-items: center;
     color: var(--light-transparent-color);
+}
+
+.subscriber-text__wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.subscriber-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1px 6px;
+    background: var(--green-accent-color);
+    color: var(--dark-color);
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    min-width: 26px;
+    height: 18px;
 }

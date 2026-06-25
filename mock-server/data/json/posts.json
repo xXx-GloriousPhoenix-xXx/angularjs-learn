@@ -90,10 +90,11 @@
     "content": "My test comment to check if comments work properly",
     "parentId": null,
     "likedBy": [
-      "abcd"
+      "abcd",
+      "yor_forger"
     ],
     "createdAt": "2026-06-25T08:15:58.010Z",
-    "repliesCount": 1
+    "repliesCount": 3
   },
   {
     "id": "post-1782375384209-373",
@@ -117,9 +118,74 @@
     "content": "Responding to myself to check replies",
     "parentId": "post-1782375358010-539",
     "likedBy": [
-      "abcd"
+      "abcd",
+      "yor_forger"
     ],
     "createdAt": "2026-06-25T08:16:24.209Z",
+    "repliesCount": 0
+  },
+  {
+    "id": "post-1782379689568-697",
+    "authorId": "yor_forger",
+    "author": {
+      "id": "yor_forger",
+      "username": "yor_forger",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/yor_forger-1782371460342.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "Yor",
+      "lastName": "Forger",
+      "description": "Frontend enthusiast who cares deeply about UX and accessibility. Believe that great design and great code go hand in hand.",
+      "isActive": true,
+      "stack": [
+        "HTML",
+        "CSS",
+        "SCSS",
+        "JS",
+        "TS",
+        "React",
+        "Vue",
+        "Angular"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "Hey, good job",
+    "parentId": "post-1782375358010-539",
+    "likedBy": [
+      "yor_forger"
+    ],
+    "createdAt": "2026-06-25T09:28:09.568Z",
+    "repliesCount": 1
+  },
+  {
+    "id": "post-1782384328401-838",
+    "authorId": "yor_forger",
+    "author": {
+      "id": "yor_forger",
+      "username": "yor_forger",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/yor_forger-1782371460342.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "Yor",
+      "lastName": "Forger",
+      "description": "Frontend enthusiast who cares deeply about UX and accessibility. Believe that great design and great code go hand in hand.",
+      "isActive": true,
+      "stack": [
+        "HTML",
+        "CSS",
+        "SCSS",
+        "JS",
+        "TS",
+        "React",
+        "Vue",
+        "Angular"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "Ty <3",
+    "parentId": "post-1782379689568-697",
+    "likedBy": [],
+    "createdAt": "2026-06-25T10:45:28.401Z",
     "repliesCount": 0
   }
 ]

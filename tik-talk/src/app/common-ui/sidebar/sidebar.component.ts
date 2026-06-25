@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { SvgIconComponent } from "../svg-icon/svg-icon.component";
 import { SubscriberCardComponent } from "./subscriber-card/subscriber-card.component";
 import { RouterLink, RouterLinkActive } from "@angular/router";
@@ -8,14 +7,15 @@ import { firstValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-sidebar',
-    imports: [SvgIconComponent, RouterLink, AsyncPipe, SubscriberCardComponent, RouterLinkActive],
+    imports: [SvgIconComponent, RouterLink, SubscriberCardComponent, RouterLinkActive],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
     profileService = inject(ProfileService);
-    subscribers$ = this.profileService.getSubscribersShortList();
     me = this.profileService.me
+    subscriberCount = this.profileService.subscribersCount;
+    subscribers = this.profileService.subscribers;
 
     menuItems = [
         {

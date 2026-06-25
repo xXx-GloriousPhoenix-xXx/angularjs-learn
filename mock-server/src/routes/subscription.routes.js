@@ -52,4 +52,17 @@ router.delete('/:username', requireAuth, (req, res) => {
     }
 });
 
+router.get('/:username', requireAuth, (req, res) => {
+    try {
+        const page = subscriptionService.getSubscribers(
+            req.params.username,
+            req.query.pageNum,
+            req.query.pageSize
+        );
+        res.json(page);
+    } catch (err) {
+        res.status(err.statusCode || 500).json({ error: err.message });
+    }
+});
+
 module.exports = router;

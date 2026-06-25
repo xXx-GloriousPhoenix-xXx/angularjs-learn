@@ -36,6 +36,10 @@ function getOrCreateProfile(username) {
     return profile;
 }
 
+function getProfile(username) {
+    return profileRepository.findByUsername(username);
+}
+
 function patchProfile(username, patch) {
     const profile = getOrCreateProfile(username);
 
@@ -50,6 +54,7 @@ function patchProfile(username, patch) {
 
 module.exports = {
     normalizeStack,
+    getProfile,
     getOrCreateProfile,
     patchProfile,
 };

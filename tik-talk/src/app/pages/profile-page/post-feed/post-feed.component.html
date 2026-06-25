@@ -1,8 +1,10 @@
 @if (isProfileCompleted()) {
-    <app-post-input
-        (posted)="onPostCreated($event)"
-        [isRoot]="true"
-    />
+    @if (isMe()) {
+        <app-post-input
+            (posted)="onPostCreated($event)"
+            [isRoot]="true"
+        />
+    }
 
     @if (isLoading()) {
         <p class="feed-loading">Loading posts...</p>

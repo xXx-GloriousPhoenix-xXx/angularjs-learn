@@ -20,21 +20,23 @@
     </ul>
 </nav>
 
-<p class="medium-text mb20 mt20">Subscribers</p>
+@if (subscriberCount() > 0) {
+    <p class="medium-text mb20 mt20">Subscribers</p>
 
-@for (profile of subscribers$ | async; track profile.id) {
-    <app-subscriber-card
-        [profile]="profile"
-    ></app-subscriber-card>
+    @for (profile of subscribers(); track profile.id) {
+        <app-subscriber-card
+            [profile]="profile"
+        ></app-subscriber-card>
+    }
+
+    <div class="mt20 to-subscribers">
+        <a
+            [routerLink]="['/subscribers']"
+            class="to-subscribers-link medium-text"
+        >All subscribers</a>
+        <svg icon="arrow" class="to-subscribers-icon"></svg>
+    </div>
 }
-
-<div class="mt20 to-subscribers">
-    <a
-        [routerLink]="['/subscribers']"
-        class="to-subscribers-link medium-text"
-    >All subscribers</a>
-    <svg icon="arrow" class="to-subscribers-icon"></svg>
-</div>
 
 <footer class="sidebar__footer">
     @if (me(); as me) {

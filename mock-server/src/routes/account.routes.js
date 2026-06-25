@@ -41,4 +41,16 @@ router.get('/accounts', requireAuth, (req, res) => {
     res.json(result);
 });
 
+router.get('/:username', requireAuth, (req, res) => {
+    try {
+        const profile = profileService.getProfile(req.params.username);
+        if (!profile) {
+            return res.status(404).json({ error: 'Profile not found' });
+        }
+        res.json(profile);
+    } catch (err) {
+        res.status(err.statusCode || 500).json({ error: err.message });
+    }
+});
+
 module.exports = router;

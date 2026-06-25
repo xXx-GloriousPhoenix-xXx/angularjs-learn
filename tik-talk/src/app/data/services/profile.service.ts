@@ -1,14 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Service, computed, inject, signal } from '@angular/core';
 import { Profile } from '../interfaces/profile.interface';
-import { map, tap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { Pagable } from '../interfaces/pagable.interface';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { ActivatedRoute } from '@angular/router';
 
 @Service()
 export class ProfileService {
     http = inject(HttpClient);
     baseApiUrl = 'http://localhost:3000';
     me = signal<Profile | null>(null);
+    route = inject(ActivatedRoute);
     filteredProfiles = signal<Pagable<Profile>>({
         items: [],
         itemCount: 0,
@@ -25,6 +28,13 @@ export class ProfileService {
         return profile.firstName.trim() !== ''
             && profile.lastName.trim() !== '';
     });
+    subscribers = toSignal(
+        this.route.params.pipe(
+            switchMap(() => this.getSubscribersShortList(5))
+        ),
+        { initialValue: [] }
+    );
+    subscribersCount = computed(() => this.subscribers().length);
 
     getMe() {
         return this.http.get<Profile>(`${this.baseApiUrl}/account/me`)
@@ -79,5 +89,21 @@ export class ProfileService {
         ).pipe(
             tap(res => this.filteredProfiles.set(res))
         );
+    }
+
+    getSubscribers(username: string, pageSize = 10) {
+        const params: any = { pageSize };
+        return this.http.get<Pagable<Profile>>(
+            `${this.baseApiUrl}/subscribers/${username}`,
+            { params }
+        );
+    }
+
+    subscribe(username: string) {
+        return this.http.post<any>(`${this.baseApiUrl}/subscribers/${username}`, {});
+    }
+    
+    unsubscribe(username: string) {
+        return this.http.delete<any>(`${this.baseApiUrl}/subscribers/${username}`);
     }
 }
