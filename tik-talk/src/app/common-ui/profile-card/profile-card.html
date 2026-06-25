@@ -5,6 +5,7 @@
                 [src]="profile.avatarUrl"
                 alt="avatar"
                 class="profile-card__avatar"
+                [routerLink]="profile.id.toString()"
             >
             <div class="profile-card__name">
                 <strong class="h6">{{ profile.firstName }} {{ profile.lastName }}</strong>

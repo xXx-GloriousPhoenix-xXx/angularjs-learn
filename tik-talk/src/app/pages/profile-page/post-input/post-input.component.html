@@ -1,6 +1,6 @@
 @if (me(); as me) {
     <img
-        [src]="me.avatarUrl"
+        [src]="me.avatarUrl ? me.avatarUrl : '/assets/images/avatar-placeholder.png'"
         [alt]="me.username"
         class="input-avatar"
     >

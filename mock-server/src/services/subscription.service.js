@@ -1,5 +1,6 @@
 const subscriptionRepository = require('../repositories/subscription.repository');
 const profileRepository = require('../repositories/profile.repository');
+const paginate = require('../utils/pagination');
 
 class SubscriptionError extends Error {
     constructor(message, statusCode) {
@@ -27,18 +28,24 @@ function toggleSubscribe({ followerUsername, followingUsername, subscribe }) {
     return profileRepository.findByUsername(followingUsername);
 }
 
-function getSubscribers(username) {
+function getSubscribers(username, pageNum = 1, pageSize = 10) {
     const relations = subscriptionRepository.findSubscribers(username);
-    return relations
+    
+    const allProfiles = relations
         .map(rel => profileRepository.findByUsername(rel.followerUsername))
         .filter(Boolean);
+
+    return paginate(allProfiles, pageNum, pageSize);
 }
 
-function getFollowing(username) {
+function getFollowing(username, pageNum = 1, pageSize = 10) {
     const relations = subscriptionRepository.findFollowing(username);
-    return relations
+    
+    const allProfiles = relations
         .map(rel => profileRepository.findByUsername(rel.followingUsername))
         .filter(Boolean);
+
+    return paginate(allProfiles, pageNum, pageSize);
 }
 
 module.exports = {

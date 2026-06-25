@@ -1,13 +1,20 @@
-<app-post-input
-    (posted)="onPostCreated($event)"
-    [isRoot]="true"
-/>
+@if (isProfileCompleted()) {
+    <app-post-input
+        (posted)="onPostCreated($event)"
+        [isRoot]="true"
+    />
 
-@if (isLoading()) {
-    <p class="feed-loading">Loading posts...</p>
+    @if (isLoading()) {
+        <p class="feed-loading">Loading posts...</p>
+    }
+    @else {
+        @for (post of posts(); track post.id) {
+            <app-post [post]="post" [depth]="0" />
+        }
+    }
 }
 @else {
-    @for (post of posts(); track post.id) {
-        <app-post [post]="post" [depth]="0" />
-    }
+    <div class="post-feed-fallback">
+        <p>Profile is not completed, set first and last name first</p>
+    </div>
 }

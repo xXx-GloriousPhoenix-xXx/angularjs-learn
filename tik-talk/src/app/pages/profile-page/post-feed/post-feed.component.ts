@@ -16,6 +16,8 @@ export class PostFeedComponent {
     private postService = inject(PostService);
     private profileService = inject(ProfileService);
 
+    isProfileCompleted = this.profileService.isProfileCompleted;
+
     readonly currentUsername = this.profileService.me()?.username;
  
     posts = signal<Post[]>([]);

@@ -6,8 +6,12 @@ const router = Router();
 
 router.get('/', requireAuth, (req, res) => {
     try {
-        const list = subscriptionService.getSubscribers(req.username);
-        res.json(list);
+        const page = subscriptionService.getSubscribers(
+            req.username, 
+            req.query.pageNum, 
+            req.query.pageSize
+        );
+        res.json(page);
     } catch (err) {
         res.status(err.statusCode || 500).json({ error: err.message });
     }

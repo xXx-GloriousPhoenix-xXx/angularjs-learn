@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Service, inject, signal } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Service, computed, inject, signal } from '@angular/core';
 import { Profile } from '../interfaces/profile.interface';
 import { map, tap } from 'rxjs';
 import { Pagable } from '../interfaces/pagable.interface';
@@ -16,10 +16,16 @@ export class ProfileService {
         pageCount: 1,
         pageNum: 1
     });
+    isProfileCompleted = computed(() => {
+        const profile = this.me();
+        if (!profile) {
+            return false;
+        }
+        
+        return profile.firstName.trim() !== ''
+            && profile.lastName.trim() !== '';
+    });
 
-    getTestAccount() {
-        return this.http.get<Profile[]>(`${this.baseApiUrl}/account/test_account`);
-    }
     getMe() {
         return this.http.get<Profile>(`${this.baseApiUrl}/account/me`)
             .pipe(
@@ -27,10 +33,13 @@ export class ProfileService {
             );
     }
     getSubscribersShortList(count: number = 3) {
-        return this.http.get<Pagable<Profile>>(`${this.baseApiUrl}/account/subscribers`)
-            .pipe(
-                map(res => res.items.slice(0, count))
-            );
+        const params = new HttpParams().set('pageSize', count.toString());
+        return this.http.get<Pagable<Profile>>(
+            `${this.baseApiUrl}/subscribers`,
+            { params }
+        ).pipe(
+            map(res => res.items)
+        );
     }
     getAccount(id: string) {
         return this.http.get<Profile>(`${this.baseApiUrl}/account/${id}`);

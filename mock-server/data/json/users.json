@@ -3,5 +3,10 @@
     "username": "yor_forger",
     "email": "your_forger@mailfence.com",
     "passwordHash": "da0f64771948e2fadb570b19efb0075a879c70aa379c600ee524668ee9df9625"
+  },
+  {
+    "username": "abcd",
+    "email": "abcd@gmail.com",
+    "passwordHash": "234c0c83347021f1827dfc2d04d2a200a845da2c74110b7894b82c83bab74637"
   }
 ]
