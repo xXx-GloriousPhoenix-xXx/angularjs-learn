@@ -1,9 +1,3 @@
-const { Router } = require('express');
-const { getPosts, createPost, setLike } = require('../models/post-store');
-const { requireAuth } = require('../middleware/auth');
-
-const router = Router();
-
 /**
  * @openapi
  * /posts:
@@ -49,19 +43,6 @@ const router = Router();
  *           application/json:
  *             schema: { $ref: '#/components/schemas/Error' }
  */
-router.get('/', requireAuth, (req, res) => {
-    console.debug('/posts request', req.query);
-
-    const result = getPosts({
-        parentId: req.query.parentId ?? null,
-        pageNum: req.query.pageNum,
-        pageSize: req.query.pageSize,
-        currentUsername: req.username,
-        authorUsername: req.query.authorUsername ?? null,
-    });
-
-    res.json(result);
-});
 
 /**
  * @openapi
@@ -103,26 +84,6 @@ router.get('/', requireAuth, (req, res) => {
  *           application/json:
  *             schema: { $ref: '#/components/schemas/Error' }
  */
-router.post('/', requireAuth, (req, res) => {
-    console.debug('/posts create request', req.body);
-
-    const { content, parentId } = req.body || {};
-
-    if (!content || !content.trim()) {
-        return res.status(400).json({ error: 'content is required' });
-    }
-
-    try {
-        const post = createPost({
-            authorUsername: req.username,
-            content: content.trim(),
-            parentId: parentId || null,
-        });
-        res.status(201).json(post);
-    } catch (err) {
-        res.status(400).json({ error: err.message });
-    }
-});
 
 /**
  * @openapi
@@ -154,16 +115,6 @@ router.post('/', requireAuth, (req, res) => {
  *           application/json:
  *             schema: { $ref: '#/components/schemas/Error' }
  */
-router.post('/:id/like', requireAuth, (req, res) => {
-    console.debug('/posts/:id/like request', req.params.id);
-
-    try {
-        const post = setLike({ postId: req.params.id, username: req.username, liked: true });
-        res.json(post);
-    } catch (err) {
-        res.status(404).json({ error: err.message });
-    }
-});
 
 /**
  * @openapi
@@ -195,15 +146,3 @@ router.post('/:id/like', requireAuth, (req, res) => {
  *           application/json:
  *             schema: { $ref: '#/components/schemas/Error' }
  */
-router.delete('/:id/like', requireAuth, (req, res) => {
-    console.debug('/posts/:id/like (unlike) request', req.params.id);
-
-    try {
-        const post = setLike({ postId: req.params.id, username: req.username, liked: false });
-        res.json(post);
-    } catch (err) {
-        res.status(404).json({ error: err.message });
-    }
-});
-
-module.exports = router;

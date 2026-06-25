@@ -1,36 +1,31 @@
-const { getAllSearchableProfiles } = require('./profile-search-pool');
-const { normalizeStack } = require('./profile-store');
+const profileRepository = require('../repositories/profile.repository');
+const { normalizeStack } = require('./profile.service');
 const { fuzzyMatch } = require('../utils/trigram');
 
-// Below this similarity score, a name/city is considered "not a match".
-// 0.3 is a reasonable starting point — raise it for stricter matching,
-// lower it to be more typo-tolerant (at the cost of more noisy results).
 const NAME_MATCH_THRESHOLD = 0.3;
 const CITY_MATCH_THRESHOLD = 0.3;
 
 /**
- * Filters all searchable profiles (real users + the random pool) by the
- * given criteria and returns a paginated slice.
+ * Filters real registered profiles (no more fake filler pool — that
+ * concept is gone now that fake profile generation was removed).
  *
  * params:
  *   name         - fuzzy-matched against firstName, lastName, OR username
- *                  (substring match first, trigram similarity as fallback —
- *                  so typos and partial names still surface results)
- *   city         - fuzzy substring/trigram match, same approach as name
+ *   city         - fuzzy substring/trigram match
  *   stack        - comma-separated string or array; profile must contain ALL requested skills
  *   registerDate - exact date match (YYYY-MM-DD)
  *   pageNum, pageSize - pagination
  */
 function filterProfiles(params = {}) {
-    const pool = getAllSearchableProfiles();
+    const allProfiles = profileRepository.readAll();
 
-    const name           = (params.name || '').trim();
-    const city           = (params.city || '').trim();
-    const registerDate   = (params.registerDate || '').trim();
-    const requestedStack = normalizeStack(params.stack || []);
+    const name            = (params.name || '').trim();
+    const city            = (params.city || '').trim();
+    const registerDate    = (params.registerDate || '').trim();
+    const requestedStack  = normalizeStack(params.stack || []);
     const excludeUsername = (params.excludeUsername || '').trim().toLowerCase();
 
-    let results = pool.filter(profile => {
+    const results = allProfiles.filter(profile => {
         if (excludeUsername && (profile.username || '').toLowerCase() === excludeUsername) {
             return false;
         }
@@ -57,10 +52,6 @@ function filterProfiles(params = {}) {
     return paginate(results, params);
 }
 
-/**
- * A profile matches the name query if ANY of firstName/lastName/username
- * fuzzily matches it. Each field is checked independently — best match wins.
- */
 function matchesName(profile, name) {
     return (
         fuzzyMatch(profile.firstName || '', name, NAME_MATCH_THRESHOLD) ||
@@ -69,11 +60,6 @@ function matchesName(profile, name) {
     );
 }
 
-/**
- * Skills/stack stays an exact match on purpose — "React" and "Recat" are
- * different technologies, not a typo of each other, so fuzzy matching
- * would do more harm than good here.
- */
 function matchesAllSkills(profile, requestedStack) {
     const profileStackLower = (profile.stack || []).map(s => s.toLowerCase());
     return requestedStack.every(skill => profileStackLower.includes(skill.toLowerCase()));
