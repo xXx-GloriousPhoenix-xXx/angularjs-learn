@@ -1,0 +1,59 @@
+{
+  "users": [
+    {
+      "username": "yor_forger",
+      "email": "yor_forger@mailfence.com",
+      "passwordHash": "da0f64771948e2fadb570b19efb0075a879c70aa379c600ee524668ee9df9625"
+    },
+    {
+      "username": "abcd",
+      "email": "abcd@gmail.com",
+      "passwordHash": "234c0c83347021f1827dfc2d04d2a200a845da2c74110b7894b82c83bab74637"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "yor_forger",
+      "username": "yor_forger",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/yor_forger-1782358742411.jpg",
+      "subscriptionsAmount": 13,
+      "firstName": "Yor",
+      "lastName": "Forger",
+      "description": "Frontend enthusiast who cares deeply about UX and accessibility. Believe that great design and great code go hand in hand.",
+      "isActive": false,
+      "stack": [
+        "HTML",
+        "CSS",
+        "SCSS",
+        "JS",
+        "TS",
+        "React",
+        "Angular",
+        "Vue",
+        "Tailwind"
+      ],
+      "city": "San Antonio",
+      "registerDate": "2023-08-20"
+    },
+    {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782358858367.jpg",
+      "subscriptionsAmount": 12,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Full-stack engineer with experience in building scalable web applications. Open to collaboration and excited about open source projects.",
+      "isActive": false,
+      "stack": [
+        ".NET",
+        "Angular",
+        "Docker",
+        "Kubernetes",
+        "PostgreSQL"
+      ],
+      "city": "Chicago",
+      "registerDate": "2024-03-14"
+    }
+  ],
+  "searchPool": []
+}
