@@ -39,14 +39,19 @@ function recalculateReplyCounts(posts) {
  * paginated, newest first. Also computes `isLikedByMe` relative to the
  * requesting user.
  */
-function getPosts({ parentId = null, pageNum = 1, pageSize = 10, currentUsername = null }) {
+function getPosts({ parentId = null, pageNum = 1, pageSize = 10, currentUsername = null, authorUsername = null }) {
     const db = readDb();
-    ensurePostsSeeded(db);
 
     const normalizedParentId = parentId === undefined || parentId === 'null' ? null : parentId;
 
     const matching = db.posts
-        .filter(post => post.parentId === normalizedParentId)
+        .filter(post => {
+            const isCorrectParent = post.parentId === normalizedParentId;
+            const isCorrectAuthor = normalizedParentId !== null 
+                ? true 
+                : (authorUsername ? post.author.username === authorUsername : true);
+            return isCorrectParent && isCorrectAuthor;
+        })
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     const itemCount = matching.length;
@@ -73,7 +78,6 @@ function withLikeState(post, currentUsername) {
 
 function createPost({ authorUsername, content, parentId = null }) {
     const db = readDb();
-    ensurePostsSeeded(db);
 
     if (parentId) {
         const parentExists = db.posts.some(p => p.id === parentId);
@@ -104,7 +108,6 @@ function createPost({ authorUsername, content, parentId = null }) {
 
 function setLike({ postId, username, liked }) {
     const db = readDb();
-    ensurePostsSeeded(db);
 
     const post = db.posts.find(p => p.id === postId);
     if (!post) {

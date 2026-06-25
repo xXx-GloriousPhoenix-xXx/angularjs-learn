@@ -11,10 +11,13 @@ export class PostService {
     /**
      * Loads top-level feed posts (parentId omitted = top level).
      */
-    getFeed(pageNum = 1, pageSize = 10) {
-        return this.http.get<Pagable<Post>>(`${this.baseApiUrl}/posts`, {
-            params: { pageNum, pageSize },
-        });
+    getFeed(pageNum = 1, pageSize = 10, authorUsername?: string) {
+        const params: any = { pageNum, pageSize };
+        if (authorUsername) {
+            params.authorUsername = authorUsername;
+        }
+
+        return this.http.get<Pagable<Post>>(`${this.baseApiUrl}/posts`, { params });
     }
  
     /**
@@ -43,5 +46,7 @@ export class PostService {
         return this.http.delete<Post>(`${this.baseApiUrl}/posts/${postId}/like`);
     }
 
-
+    deletePost(postId: string) {
+        return this.http.delete(`${this.baseApiUrl}/posts/${postId}`);
+    }
 }

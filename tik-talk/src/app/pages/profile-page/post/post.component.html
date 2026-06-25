@@ -3,57 +3,60 @@
     [class.framed]="depth === 0"
     [style.--depth]="depth"
 >
-    <img
-        [src]="post.author.avatarUrl"
-        [alt]="post.author.username"
-        class="post__avatar"
-    >
-    <div class="post__content">
-        <div class="post__header mb12">
-            <p class="post__author">{{ post.author.firstName }} {{ post.author.lastName }}</p>
-            <p class="post__time-ago">{{ post.createdAt }}</p>
-        </div>
-
-        <p class="mb8">{{ post.content }}</p>
+    <div class="post-content__wrapper">
+        <img
+            [src]="post.author.avatarUrl"
+            [alt]="post.author.username"
+            class="post__avatar"
+        >
+        <div class="post__content">
+            <div class="post__header mb12">
+                <p class="post__author">{{ post.author.firstName }} {{ post.author.lastName }}</p>
+                <p class="post__time-ago">{{ post.createdAt | timeAgo }}</p>
+            </div>
     
-        <div class="post__actions">
-            <button
-                class="post__action-btn"
-                [class.active]="isLikedByMe()"
-                (keydown.escape)="cancelLike($event)"
-                (click)="toggleLike()"
-            >
-                <svg icon="like" class="post__action-icon"></svg>
-                <span class="count-span">{{ likesCount() }}</span>
-            </button>
-            <button
-                class="post__action-btn"
-                (click)="toggleReplyForm()"
-                [class.active]="isReplying()"
-                (keydown.escape)="cancelReplyForm($event)"
-            >
-                <svg icon="reply" class="post__action-icon"></svg>
-                <span class="count-span">{{ localRepliesCount() > 0 ? localRepliesCount() : '' }}</span>
-            </button>
-            @if (localRepliesCount() > 0) {
+            <p class="mb8">{{ post.content }}</p>
+        
+            <div class="post__actions">
                 <button
-                    class="post__action-btn post__toggle-replies-btn"
-                    (click)="toggleReplies()"
-                    [class.active]="repliesExpanded()"
-                    (keydown.escape)="cancelShowReplies($event)"
+                    class="post__action-btn"
+                    [class.active]="isLikedByMe()"
+                    (keydown.escape)="cancelLike($event)"
+                    (click)="toggleLike()"
                 >
-                    <span class="post__action-btn-text">
-                        {{ repliesExpanded() ? "Hide" : "Show" }} replies
-                    </span>
-                    <svg
-                        icon="chevron"
-                        class="post__action-icon rotatable-icon"
-                        [style.--rotation-step]="rotationStep()"
-                    ></svg>
+                    <svg [icon]="isLikedByMe() ? 'like-filled' : 'like'" class="post__action-icon"></svg>
+                    <span class="count-span">{{ likesCount() }}</span>
                 </button>
-            }
+                <button
+                    class="post__action-btn"
+                    (click)="toggleReplyForm()"
+                    [class.active]="isReplying()"
+                    (keydown.escape)="cancelReplyForm($event)"
+                >
+                    <svg icon="reply" class="post__action-icon"></svg>
+                    <span class="count-span">{{ localRepliesCount() > 0 ? localRepliesCount() : '' }}</span>
+                </button>
+                @if (localRepliesCount() > 0) {
+                    <button
+                        class="post__action-btn post__toggle-replies-btn"
+                        (click)="toggleReplies()"
+                        [class.active]="repliesExpanded()"
+                        (keydown.escape)="cancelShowReplies($event)"
+                    >
+                        <span class="post__action-btn-text">
+                            {{ repliesExpanded() ? "Hide" : "Show" }} replies
+                        </span>
+                        <svg
+                            icon="chevron"
+                            class="post__action-icon rotatable-icon"
+                            [style.--rotation-step]="rotationStep()"
+                        ></svg>
+                    </button>
+                }
+            </div>
         </div>
-    
+    </div>
+    <div class="reply-section__wrapper">
         @if (isReplying()) {
             <div class="post__reply-form">
                 <app-post-input

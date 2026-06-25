@@ -3,11 +3,17 @@ import { SvgIconComponent } from '../../../common-ui/svg-icon/svg-icon.component
 import { PostInputComponent } from '../post-input/post-input.component';
 import { Post } from '../../../data/interfaces/post.interface';
 import { PostService } from '../../../data/services/post.service';
+import { TimeAgoPipe } from '../../../common-ui/pipes/time-ago-pipe';
 
 @Component({
     selector: 'app-post',
     standalone: true,
-    imports: [SvgIconComponent, PostInputComponent, PostComponent],
+    imports: [
+        SvgIconComponent,
+        PostInputComponent,
+        PostComponent,
+        TimeAgoPipe
+    ],
     templateUrl: './post.component.html',
     styleUrl: './post.component.scss',
 })

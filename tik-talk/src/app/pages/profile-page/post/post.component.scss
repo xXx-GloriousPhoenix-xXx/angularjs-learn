@@ -1,9 +1,35 @@
 .post {
-    display: grid;
-    grid-template-columns: 32px 1fr;
-    gap: 16px;
-    padding: 20px;
+    padding: 20px 20px 20px 0;
     background: var(--dark-color);
+    display: flex;
+    flex-flow: column nowrap;
+    margin-left: 0;
+
+    @for $i from 0 through 4 {
+        &[style*="--depth: #{$i}"] {
+            padding-left: 20px;
+        }
+    }
+
+    @for $i from 1 through 4 {
+        &[style*="--depth: #{$i}"] {
+            margin-left: 28px;
+        }
+    }
+}
+
+.post-content__wrapper {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: start;
+    gap: 16px;
+}
+
+.post__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
 }
 
 .post__header {
@@ -13,24 +39,10 @@
     gap: 8px;
 }
 
-.post__avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-}
 
-.post__action-icon {
-    width: 16px;
-    height: 16px;
-    transition: 200ms;
-}
 
 .rotatable-icon {
-    transform: rotate(
-        calc(
-            (var(--rotation-step, 0) + 1) * 180deg
-        )
-    );
+    transform: rotate(calc((var(--rotation-step, 0) + 1) * 180deg));
 }
 
 .post__reply-form {
@@ -53,6 +65,7 @@
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
+    transform: translateY(2px);
 }
 
 .framed {
@@ -79,6 +92,13 @@
     gap: 6px;
     cursor: pointer;
 
+    .post__action-icon {
+        width: 16px;
+        height: 16px;
+        transition: 200ms;
+        fill: transparent;
+    }
+
     &:hover,
     &.active {
         color: var(--primary-color);
@@ -94,4 +114,9 @@
     font-size: 12px;
     font-weight: 500;
     font-style: normal
+}
+
+.reply-section__wrapper {
+    display: flex;
+    flex-flow: column nowrap;
 }
