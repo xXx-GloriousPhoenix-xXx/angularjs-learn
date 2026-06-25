@@ -89,7 +89,9 @@
     },
     "content": "My test comment to check if comments work properly",
     "parentId": null,
-    "likedBy": [],
+    "likedBy": [
+      "abcd"
+    ],
     "createdAt": "2026-06-25T08:15:58.010Z",
     "repliesCount": 1
   },

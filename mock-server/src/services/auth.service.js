@@ -1,12 +1,23 @@
 const { hashPassword } = require('../utils/crypto');
-const { accessTokens, refreshTokens, issueTokenPair } = require('../utils/tokens');
 const userRepository = require('../repositories/user.repository');
+const tokenRepository = require('../repositories/token.repository');
+const crypto = require('crypto');
 
 class AuthError extends Error {
     constructor(message, statusCode) {
         super(message);
         this.statusCode = statusCode;
     }
+}
+
+function issueTokenPair(username) {
+    const accessToken = crypto.randomBytes(32).toString('hex');
+    const refreshToken = crypto.randomBytes(32).toString('hex');
+
+    tokenRepository.setAccessToken(accessToken, username);
+    tokenRepository.setRefreshToken(refreshToken, username);
+
+    return { access_token: accessToken, refresh_token: refreshToken };
 }
 
 function register({ username, email, password }) {
@@ -43,7 +54,7 @@ function refresh(refreshToken) {
         throw new AuthError('refresh_token is required', 400);
     }
 
-    const username = refreshTokens.get(refreshToken);
+    const username = tokenRepository.getUsernameByRefreshToken(refreshToken);
     if (!username) {
         throw new AuthError('Invalid or expired refresh_token', 403);
     }
