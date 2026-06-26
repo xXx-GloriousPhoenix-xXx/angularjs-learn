@@ -168,4 +168,10 @@ body {
     border: 1px solid var(--light-color);
     font-weight: 700;
     font-size: 12px;
+
+    transition: 200ms;
+    &:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+    }
 }
