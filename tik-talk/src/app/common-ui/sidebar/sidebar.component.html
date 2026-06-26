@@ -39,21 +39,25 @@
 }
 
 <footer class="sidebar__footer">
-    @if (me(); as me) {
-        <img
-            class="me-icon"
-            [src]="me.avatarUrl ? me.avatarUrl : '/assets/images/avatar-placeholder.png'"
-            [alt]="me.username"
-        >
-        
-        <a [routerLink]="['/profile', 'me']"
-            class="sidebar-profile"
-        >
-            <p class="me-username">{{ me.username }}</p>
-            <svg icon="settings" class="sidebar-settings-icon"></svg>
-        </a>
-    }
-    @else {
+    <a
+        class="sidebar-profile__wrapper"
+        [routerLink]="['/profile/me']"
+    >
+        @if (me(); as me) {
+            <img
+                class="me-icon"
+                [src]="me.avatarUrl ? me.avatarUrl : '/assets/images/avatar-placeholder.png'"
+                [alt]="me.username"
+            >
+            <div
+                class="sidebar-profile"
+            >
+                <p class="me-username">{{ me.username }}</p>
+                <svg icon="settings" class="sidebar-settings-icon"></svg>
+            </div>
+        }
+        @else {
 
-    }
+        }
+    </a>
 </footer>

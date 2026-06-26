@@ -78,20 +78,28 @@
 
     background: var(--dark-hover-color);
     border-radius: 2px;
-    padding: 4px 16px;
-    grid-gap: 12px;
-    display: grid;
-    grid-template-columns: 32px 1fr;
-    align-items: center;
-    color: var(--light-color);
 
-    transition: 200ms;
-    cursor: pointer;
+    .sidebar-profile__wrapper {
+        padding: 4px 16px;
+        grid-gap: 12px;
+        display: grid;
+        grid-template-columns: 32px 1fr;
+        align-items: center;
+        color: var(--light-color);
 
-    &:hover,
-    &:focus-visible {
-        color: var(--primary-color);
+        transition: 200ms;
+        cursor: pointer;
+
+        text-decoration: none;
+        color: inherit;
+
+        &:hover,
+        &:focus-visible {
+            color: var(--primary-color);
+        }
     }
+
+
 
     .me-icon {
         width: 32px;
@@ -106,8 +114,6 @@
     }
 
     .sidebar-profile {
-        text-decoration: none;
-        color: inherit;
         display: flex;
         width: 100%;
         align-items: center;

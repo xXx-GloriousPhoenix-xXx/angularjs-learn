@@ -42,14 +42,16 @@
                             class="subscriber-avatar-icon"
                         >
                     </a>
+                }
+                @empty {
+                    <p class="medium-text fallback-text">No subscribers yet</p>
+                }
+                @if (isMe()) {
                     <div class="to-subscribers-search-wrapper">
                         <a class="to-subscribers-search-btn"
                             [routerLink]="['/search']"
                         ></a>
                     </div>
-                }
-                @empty {
-                    <p class="medium-text fallback-text">No subscribers yet</p>
                 }
             </div>
     
