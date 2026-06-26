@@ -1,0 +1,17 @@
+@if (isLoading()) {
+    <p>Loading removed posts...</p>
+} @else {
+    @for (post of posts(); track post.id) {
+        <app-removed-post
+            [post]="post"
+            (restored)="onRestored($event)"
+        />
+    }
+    @empty {
+        <p>Your bin is empty</p>
+    }
+}
+
+<a class="btn to-profile" [routerLink]="['/profile/me']">
+    <svg class="action-svg" icon="home"></svg>
+</a>

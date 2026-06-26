@@ -49,4 +49,12 @@ export class PostService {
     deletePost(postId: string) {
         return this.http.delete(`${this.baseApiUrl}/posts/${postId}`);
     }
+
+    getDeletedPosts() {
+        return this.http.get<Post[]>(`${this.baseApiUrl}/posts/trash`);
+    }
+    
+    restorePost(postId: string) {
+        return this.http.patch<Post>(`${this.baseApiUrl}/posts/${postId}/restore`, {});
+    }
 }

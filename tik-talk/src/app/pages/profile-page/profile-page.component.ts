@@ -6,10 +6,11 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Subject, map, merge, of, startWith, switchMap } from 'rxjs';
 import { PostFeedComponent } from "./post-feed/post-feed.component";
 import { StackListPipe } from '../../common-ui/pipes/stack-list-pipe';
+import { SvgIconComponent } from "../../common-ui/svg-icon/svg-icon.component";
 
 @Component({
     selector: 'app-profile-page',
-    imports: [ProfileHeaderComponent, RouterLink, PostFeedComponent, StackListPipe],
+    imports: [ProfileHeaderComponent, RouterLink, PostFeedComponent, StackListPipe, SvgIconComponent],
     templateUrl: './profile-page.component.html',
     styleUrl: './profile-page.component.scss',
 })

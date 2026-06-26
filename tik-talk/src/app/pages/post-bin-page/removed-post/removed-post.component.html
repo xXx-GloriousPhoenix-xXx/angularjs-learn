@@ -1,0 +1,38 @@
+<article
+    class="removed-post"
+>
+    <img
+        [src]="post.author.avatarUrl"
+        [alt]="post.author.username"
+        class="post__avatar"
+    >
+    <div class="post__content">
+        <div class="post__header mb12">
+            <p class="post__author">{{ post.author.firstName }} {{ post.author.lastName }}</p>
+            <p class="post__time-ago">{{ post.createdAt | timeAgo }}</p>
+        </div>
+
+        <p class="mb8">{{ post.content }}</p>
+
+        <div class="post__actions">
+            <div
+                class="post__action-btn"
+            >
+                <svg [icon]="isLikedByMe() ? 'like-filled' : 'like'" class="post__action-icon"></svg>
+                <span class="count-span">{{ likesCount() }}</span>
+            </div>
+            <div
+                class="post__action-btn"
+            >
+                <svg icon="reply" class="post__action-icon"></svg>
+                <span class="count-span">{{ localRepliesCount() > 0 ? localRepliesCount() : '' }}</span>
+            </div>
+            <button
+                class="post__action-btn restore-btn"
+                (click)="onPostRestore()"
+            >
+                <svg icon="restore" class="restore-icon"></svg>
+            </button>
+        </div>
+    </div>
+</article>

@@ -7,6 +7,7 @@ import { SidebarLayoutComponent } from './common-ui/sidebar-layout/sidebar-layou
 import { canActivateAuth } from './common-ui/access.guard';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
+import { PostBinPageComponent } from './pages/post-bin-page/post-bin-page.component';
 
 export const routes: Routes = [
     { 
@@ -16,7 +17,8 @@ export const routes: Routes = [
             { path: '', redirectTo: 'profile/me', pathMatch: 'full' },
             { path: 'search', component: SearchPageComponent },
             { path: 'profile/:id', component: ProfilePageComponent },
-            { path: 'settings', component: SettingsPageComponent }
+            { path: 'post-bin', component: PostBinPageComponent },
+            { path: 'settings', component: SettingsPageComponent },
         ],
         canActivate: [canActivateAuth]
     },

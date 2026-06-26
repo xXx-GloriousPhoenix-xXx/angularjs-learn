@@ -266,5 +266,187 @@
     "isDeleted": true,
     "createdAt": "2026-06-26T13:53:22.743Z",
     "repliesCount": 0
+  },
+  {
+    "id": "post-1782486661916-43",
+    "authorId": "abcd",
+    "author": {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Test account ABCD",
+      "isActive": true,
+      "stack": [
+        "ML",
+        "Computer Vision"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "yes",
+    "parentId": null,
+    "likedBy": [],
+    "isDeleted": true,
+    "createdAt": "2026-06-26T15:11:01.916Z",
+    "repliesCount": 0
+  },
+  {
+    "id": "post-1782495550958-419",
+    "authorId": "abcd",
+    "author": {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Test account ABCD",
+      "isActive": true,
+      "stack": [
+        "ML",
+        "Computer Vision"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "asd",
+    "parentId": null,
+    "likedBy": [],
+    "isDeleted": true,
+    "createdAt": "2026-06-26T17:39:10.958Z",
+    "repliesCount": 0
+  },
+  {
+    "id": "post-1782495555382-195",
+    "authorId": "abcd",
+    "author": {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Test account ABCD",
+      "isActive": true,
+      "stack": [
+        "ML",
+        "Computer Vision"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "asd",
+    "parentId": null,
+    "likedBy": [],
+    "isDeleted": true,
+    "createdAt": "2026-06-26T17:39:15.383Z",
+    "repliesCount": 0
+  },
+  {
+    "id": "post-1782497222998-896",
+    "authorId": "abcd",
+    "author": {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Test account ABCD",
+      "isActive": true,
+      "stack": [
+        "ML",
+        "Computer Vision"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "as",
+    "parentId": null,
+    "likedBy": [],
+    "isDeleted": true,
+    "createdAt": "2026-06-26T18:07:02.998Z",
+    "repliesCount": 0
+  },
+  {
+    "id": "post-1782497224552-451",
+    "authorId": "abcd",
+    "author": {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Test account ABCD",
+      "isActive": true,
+      "stack": [
+        "ML",
+        "Computer Vision"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "asd",
+    "parentId": null,
+    "likedBy": [],
+    "isDeleted": true,
+    "createdAt": "2026-06-26T18:07:04.552Z",
+    "repliesCount": 0
+  },
+  {
+    "id": "post-1782497225712-688",
+    "authorId": "abcd",
+    "author": {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Test account ABCD",
+      "isActive": true,
+      "stack": [
+        "ML",
+        "Computer Vision"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "asd",
+    "parentId": null,
+    "likedBy": [],
+    "isDeleted": true,
+    "createdAt": "2026-06-26T18:07:05.712Z",
+    "repliesCount": 0
+  },
+  {
+    "id": "post-1782497337344-677",
+    "authorId": "abcd",
+    "author": {
+      "id": "abcd",
+      "username": "abcd",
+      "avatarUrl": "http://localhost:3000/account/me/avatar/abcd-1782374482177.jpg",
+      "subscriptionsAmount": 0,
+      "firstName": "AB",
+      "lastName": "CD",
+      "description": "Test account ABCD",
+      "isActive": true,
+      "stack": [
+        "ML",
+        "Computer Vision"
+      ],
+      "city": "",
+      "registerDate": "2026-06-25"
+    },
+    "content": "asdasd",
+    "parentId": null,
+    "likedBy": [],
+    "isDeleted": true,
+    "createdAt": "2026-06-26T18:08:57.344Z",
+    "repliesCount": 0
   }
 ]

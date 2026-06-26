@@ -1,0 +1,91 @@
+.removed-post {
+    padding: 20px;
+    background: var(--dark-color);
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 16px;
+    margin-left: 0;
+    border-radius: 2px;
+    border: 1px solid var(--light-color);
+}
+
+.post__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.post__content {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+}
+
+.post__header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.post__author {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+}
+
+.post__time-ago {
+    color: var(--light-transparent-color);
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    transform: translateY(2px);
+}
+
+.post__actions {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
+    height: 32px;
+    width: 100%;
+    justify-content: start;
+    align-items: center;
+}
+
+.post__action-btn {
+    font-family: inherit;
+    background: none;
+    border: none;
+    color: var(--light-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    .post__action-icon {
+        width: 16px;
+        height: 16px;
+        transition: 200ms;
+        fill: transparent;
+    }
+}
+
+.count-span {
+    display: inline-block;
+    transform: translateY(-1px);
+}
+
+.restore-btn {
+    display: flex;
+    margin-left: auto;
+    color: var(--green-accent-color);
+
+    .restore-icon {
+        width: 24px;
+        height: 24px;
+        transition: 200ms;
+
+        &:hover {
+            color: var(--light-color);
+        }
+    }
+}

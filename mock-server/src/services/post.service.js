@@ -148,10 +148,36 @@ function deletePost(postId, username) {
     postRepository.save(allPosts);
 }
 
+function getDeletedPosts(username) {
+    const all = postRepository.readAll();
+    return all.filter(p => p.isDeleted && p.author.username === username);
+}
+
+function restorePost(postId, username) {
+    const allPosts = postRepository.readAll();
+    const post = allPosts.find(p => p.id === postId);
+
+    if (!post) {
+        throw new PostError('Post not found', 404);
+    }
+    if (post.author.username !== username) {
+        throw new PostError('You can only restore your own posts', 403);
+    }
+    if (!post.isDeleted) {
+        throw new PostError('Post is not deleted', 400);
+    }
+
+    post.isDeleted = false;
+    postRepository.save(allPosts);
+    return withLikeState(post, username);
+}
+
 module.exports = {
     PostError,
     getPosts,
     createPost,
     setLike,
-    deletePost
+    deletePost,
+    getDeletedPosts,
+    restorePost
 };

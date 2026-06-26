@@ -4,6 +4,15 @@ const { requireAuth } = require('../middleware/auth.middleware');
 
 const router = Router();
 
+router.get('/trash', requireAuth, (req, res) => {
+    try {
+        const posts = postService.getDeletedPosts(req.username);
+        res.json(posts);
+    } catch (err) {
+        res.status(err.statusCode || 500).json({ error: err.message });
+    }
+});
+
 router.get('/', requireAuth, (req, res) => {
     const result = postService.getPosts({
         parentId: req.query.parentId ?? null,

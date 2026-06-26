@@ -22,9 +22,18 @@
         }
     </header>
     <main class="profile-page__body">
-        <app-post-feed
-            [profile]="profile()!"
-        />
+        <div class="post-feed__wrapper">
+            <app-post-feed
+                [profile]="profile()!"
+            />
+
+            <a
+                class="to-post-bin btn"
+                [routerLink]="['/post-bin']"
+                >
+                <svg icon="delete" class="action-svg"></svg>
+            </a>
+        </div>
         
         <div class="about-me">
             <div class="mb16 subscriber-text__wrapper">
