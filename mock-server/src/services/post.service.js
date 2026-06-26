@@ -69,6 +69,7 @@ function getPosts({
 
     let matching = postRepository
         .findByParentId(normalizedParentId)
+        .filter(p => !p.isDeleted)
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     if (authorUsername) {
@@ -99,6 +100,7 @@ function createPost({ authorUsername, content, parentId = null }) {
         content,
         parentId: parentId || null,
         likedBy: [],
+        isDeleted: false,
         createdAt: new Date().toISOString(),
     };
 
@@ -131,9 +133,25 @@ function setLike({ postId, username, liked }) {
     return withLikeState(post, username);
 }
 
+function deletePost(postId, username) {
+    const allPosts = postRepository.readAll();
+    const post = allPosts.find(p => p.id === postId);
+
+    if (!post) {
+        throw new PostError('Post not found', 404);
+    }
+    if (post.author.username !== username) {
+        throw new PostError('You can only delete your own posts', 403);
+    }
+
+    post.isDeleted = true;
+    postRepository.save(allPosts);
+}
+
 module.exports = {
     PostError,
     getPosts,
     createPost,
     setLike,
+    deletePost
 };

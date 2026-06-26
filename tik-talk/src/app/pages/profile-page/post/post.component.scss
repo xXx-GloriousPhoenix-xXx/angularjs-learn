@@ -52,6 +52,7 @@
 .post__content {
     display: flex;
     flex-flow: column nowrap;
+    width: 100%;
 }
 
 .post__author {
@@ -103,6 +104,8 @@
     &.active {
         color: var(--primary-color);
     }
+
+
 }
 
 .count-span {
@@ -120,3 +123,20 @@
     display: flex;
     flex-flow: column nowrap;
 }
+
+.delete-btn {
+    display: flex;
+    margin-left: auto;
+    color: var(--red-accent-color);
+
+    .delete-icon {
+        width: 16px;
+        height: 16px;
+        transition: 200ms;
+
+        &:hover {
+            color: var(--light-color);
+        }
+    }
+}
+

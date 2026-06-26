@@ -11,7 +11,11 @@
     }
     @else {
         @for (post of posts(); track post.id) {
-            <app-post [post]="post" [depth]="0" />
+            <app-post
+                [post]="post"
+                [depth]="0"
+                (postDeleted)="onPostRemoved($event)"
+            />
         }
     }
 }

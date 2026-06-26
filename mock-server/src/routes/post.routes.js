@@ -53,4 +53,22 @@ router.delete('/:id/like', requireAuth, (req, res) => {
     }
 });
 
+router.delete('/:id', requireAuth, (req, res) => {
+    try {
+        postService.deletePost(req.params.id, req.username);
+        res.status(204).send();
+    } catch (err) {
+        res.status(err.statusCode || 500).json({ error: err.message });
+    }
+});
+
+router.patch('/:id/restore', requireAuth, (req, res) => {
+    try {
+        postService.restorePost(req.params.id, req.username);
+        res.json({ success: true });
+    } catch (err) {
+        res.status(err.statusCode || 500).json({ error: err.message });
+    }
+});
+
 module.exports = router;

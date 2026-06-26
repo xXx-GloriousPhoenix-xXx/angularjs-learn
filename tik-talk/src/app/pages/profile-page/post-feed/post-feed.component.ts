@@ -63,4 +63,8 @@ export class PostFeedComponent {
     onPostCreated(newPost: Post): void {
         this.posts.set([newPost, ...this.posts()]);
     }
+
+    onPostRemoved(postId: string) {
+        this.posts.update(posts => posts.filter(p => p.id !== postId));
+    }
 }

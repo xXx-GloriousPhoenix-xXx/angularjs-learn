@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, computed, inject, signal } from '@angular/core';
 import { SvgIconComponent } from '../../../common-ui/svg-icon/svg-icon.component';
 import { PostInputComponent } from '../post-input/post-input.component';
 import { Post } from '../../../data/interfaces/post.interface';
 import { PostService } from '../../../data/services/post.service';
 import { TimeAgoPipe } from '../../../common-ui/pipes/time-ago-pipe';
+import { ProfileService } from '../../../data/services/profile.service';
 
 @Component({
     selector: 'app-post',
@@ -20,13 +21,20 @@ import { TimeAgoPipe } from '../../../common-ui/pipes/time-ago-pipe';
 export class PostComponent implements OnInit {
     @Input({ required: true }) post!: Post;
     @Input() depth = 0;
+    @Output() postDeleted = new EventEmitter<string>();
     
     private postService = inject(PostService);
+    private profileService = inject(ProfileService);
 
     likesCount = signal(0);
     isLikedByMe = signal(false);
 
     isReplying = signal(false);
+    isDeletable = computed(() => {
+        const author = this.post.author.username;
+        const me = this.profileService.me()!.username;
+        return author === me;
+    })
 
     repliesExpanded = signal(false);
     replies = signal<Post[]>([]);
@@ -123,4 +131,13 @@ export class PostComponent implements OnInit {
         });
     }
 
+    onPostDelete() {
+        this.postService.deletePost(this.post.id)
+            .subscribe({
+                next: () => {
+                    this.postDeleted.emit(this.post.id);
+                },
+                error: (err) => console.error('Delete error', err)
+            });
+    }
 }
