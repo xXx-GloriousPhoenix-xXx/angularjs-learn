@@ -81,6 +81,8 @@ export class SettingsPageComponent {
         };
 
         await firstValueFrom(this.profileService.patchProfile(payload));
+
+        this.router.navigate(['/profile/me']);
     }
 
     onCancel() {

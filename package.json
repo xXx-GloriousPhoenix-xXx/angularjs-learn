@@ -1,0 +1,24 @@
+{
+  "name": "angularjs-learn",
+  "version": "1.0.0",
+  "description": "Run frontend: `npm start`\r Run backend:\r dev: `npm run dev`\r prod: `npm start`",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run dev --prefix mock-server\" \"npm run start --prefix tik-talk\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xXx-GloriousPhoenix-xXx/angularjs-learn.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/xXx-GloriousPhoenix-xXx/angularjs-learn/issues"
+  },
+  "homepage": "https://github.com/xXx-GloriousPhoenix-xXx/angularjs-learn#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}

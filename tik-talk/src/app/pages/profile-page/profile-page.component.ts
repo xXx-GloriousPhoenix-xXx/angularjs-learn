@@ -100,6 +100,8 @@ export class ProfilePageComponent {
             next: () => {
                 this.refreshSubs$.next();
                 this.refreshProfile$.next();
+                this.profileService.loadMySubscriptions();
+                this.profileService.refreshMySubscribers();
             },
             error: (err) => console.error('Subscription error', err)
         });

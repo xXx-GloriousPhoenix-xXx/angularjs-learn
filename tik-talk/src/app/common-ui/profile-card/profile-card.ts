@@ -1,4 +1,4 @@
-import { Component, Input, inject, signal } from '@angular/core';
+import { Component, Input, computed, inject, signal } from '@angular/core';
 import { Profile } from '../../data/interfaces/profile.interface';
 import { RouterLink } from "@angular/router";
 import { ProfileService } from '../../data/services/profile.service';
@@ -11,8 +11,12 @@ import { ProfileService } from '../../data/services/profile.service';
 })
 export class ProfileCardComponent {
     @Input() profile!: Profile;
-    isSubscribed = signal(false);
     profileService = inject(ProfileService);
+
+    isSubscribed = computed(() => {
+        return this.profileService.mySubscriptions().includes(this.profile.username);
+    });
+
     onToggleSubscribe() {
         const username = this.profile.username;
         const action = this.isSubscribed()
@@ -21,7 +25,8 @@ export class ProfileCardComponent {
 
         action.subscribe({
             next: () => {
-                this.isSubscribed.update(v => !v);
+                this.profileService.loadMySubscriptions();
+                this.profileService.refreshMySubscribers();
             },
             error: (err) => console.error('Subscription error', err)
         });

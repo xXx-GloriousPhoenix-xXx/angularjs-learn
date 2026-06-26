@@ -2,6 +2,7 @@
     class="subscriber-avatar"
     [src]="profile.avatarUrl"
     [alt]="profile.username"
+    [routerLink]="[`/profile/${profile.username}`]"
 >
 
 <strong class="subtitle">{{ profile.firstName }} {{ profile.lastName }}</strong>

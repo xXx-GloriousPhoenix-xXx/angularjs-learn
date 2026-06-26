@@ -29,6 +29,15 @@ export class ProfileService {
             && profile.lastName.trim() !== '';
     });
     private mySubscribersRefresh$ = new Subject<void>();
+    mySubscriptions = signal<string[]>([]);
+    loadMySubscriptions() {
+        this.http.get<Pagable<Profile>>(`${this.baseApiUrl}/subscribers/following`, {
+            params: { pageSize: 100 }
+        }).pipe(
+            map(page => page.items.map(p => p.username))
+        ).subscribe(usernames => this.mySubscriptions.set(usernames));
+    }
+
     subscribers = toSignal(
         this.route.params.pipe(
             switchMap(() => this.getSubscribersShortList(5))
@@ -56,10 +65,13 @@ export class ProfileService {
     mySubscribersCount = computed(() => this.mySubscribers().length);
 
     getMe() {
-        return this.http.get<Profile>(`${this.baseApiUrl}/account/me`)
-            .pipe(
-                tap(val => this.me.set(val))
-            );
+        return this.http.get<Profile>(`${this.baseApiUrl}/account/me`).pipe(
+            tap(val => {
+                this.me.set(val);
+                this.mySubscribersRefresh$.next();
+                this.loadMySubscriptions();
+            })
+        );
     }
     getSubscribersShortList(count: number = 3) {
         const params = new HttpParams().set('pageSize', count.toString());
