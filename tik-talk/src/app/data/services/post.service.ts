@@ -57,4 +57,8 @@ export class PostService {
     restorePost(postId: string) {
         return this.http.patch<Post>(`${this.baseApiUrl}/posts/${postId}/restore`, {});
     }
+
+    hardDeletePost(postId: string) {
+        return this.http.delete(`${this.baseApiUrl}/posts/${postId}/hard`);
+    }
 }

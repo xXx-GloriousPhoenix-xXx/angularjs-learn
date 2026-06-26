@@ -172,6 +172,26 @@ function restorePost(postId, username) {
     return withLikeState(post, username);
 }
 
+function hardDeletePost(postId, username) {
+    const allPosts = postRepository.readAll();
+    const post = allPosts.find(p => p.id === postId);
+    if (!post) throw new PostError('Post not found', 404);
+    if (post.author.username !== username) throw new PostError('Forbidden', 403);
+
+    const idsToDelete = new Set();
+    function collectDescendants(pid) {
+        idsToDelete.add(pid);
+        allPosts.forEach(p => {
+            if (p.parentId === pid) collectDescendants(p.id);
+        });
+    }
+    collectDescendants(postId);
+
+    const filtered = allPosts.filter(p => !idsToDelete.has(p.id));
+    recalculateReplyCounts(filtered);
+    postRepository.save(filtered);
+}
+
 module.exports = {
     PostError,
     getPosts,
@@ -179,5 +199,6 @@ module.exports = {
     setLike,
     deletePost,
     getDeletedPosts,
-    restorePost
+    restorePost,
+    hardDeletePost
 };

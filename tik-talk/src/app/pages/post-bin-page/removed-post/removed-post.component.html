@@ -15,24 +15,34 @@
         <p class="mb8">{{ post.content }}</p>
 
         <div class="post__actions">
-            <div
-                class="post__action-btn"
-            >
-                <svg [icon]="isLikedByMe() ? 'like-filled' : 'like'" class="post__action-icon"></svg>
-                <span class="count-span">{{ likesCount() }}</span>
+            <div class="post__actions-block">
+                <div
+                    class="post__action-btn"
+                >
+                    <svg [icon]="isLikedByMe() ? 'like-filled' : 'like'" class="post__action-icon"></svg>
+                    <span class="count-span">{{ likesCount() }}</span>
+                </div>
+                <div
+                    class="post__action-btn"
+                >
+                    <svg icon="reply" class="post__action-icon"></svg>
+                    <span class="count-span">{{ localRepliesCount() > 0 ? localRepliesCount() : '' }}</span>
+                </div>
             </div>
-            <div
-                class="post__action-btn"
-            >
-                <svg icon="reply" class="post__action-icon"></svg>
-                <span class="count-span">{{ localRepliesCount() > 0 ? localRepliesCount() : '' }}</span>
+            <div class="post__actions-block">
+                <button
+                    class="post__action-btn restore-btn"
+                    (click)="onPostRestore()"
+                >
+                    <svg icon="restore" class="restore-icon"></svg>
+                </button>
+                <button
+                    class="post__action-btn hard-delete-btn"
+                    (click)="onPostHardDelete()"
+                >
+                    <svg icon="delete" class="hard-delete-icon"></svg>
+                </button>
             </div>
-            <button
-                class="post__action-btn restore-btn"
-                (click)="onPostRestore()"
-            >
-                <svg icon="restore" class="restore-icon"></svg>
-            </button>
         </div>
     </div>
 </article>

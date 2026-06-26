@@ -62,6 +62,15 @@ router.delete('/:id/like', requireAuth, (req, res) => {
     }
 });
 
+router.delete('/:id/hard', requireAuth, (req, res) => {
+    try {
+        postService.hardDeletePost(req.params.id, req.username);
+        res.status(204).send();
+    } catch (err) {
+        res.status(err.statusCode || 500).json({ error: err.message });
+    }
+});
+
 router.delete('/:id', requireAuth, (req, res) => {
     try {
         postService.deletePost(req.params.id, req.username);

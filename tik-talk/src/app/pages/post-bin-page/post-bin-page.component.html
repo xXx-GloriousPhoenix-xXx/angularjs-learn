@@ -5,6 +5,7 @@
         <app-removed-post
             [post]="post"
             (restored)="onRestored($event)"
+            (hardDeleted)="onHardDeleted($event)"
         />
     }
     @empty {

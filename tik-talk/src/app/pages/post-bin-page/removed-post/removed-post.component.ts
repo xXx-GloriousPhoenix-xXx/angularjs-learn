@@ -13,8 +13,10 @@ import { PostService } from '../../../data/services/post.service';
 export class RemovedPostComponent {
     @Input() post!: Post;
     @Output() restored = new EventEmitter<string>();
+    @Output() hardDeleted = new EventEmitter<string>();
 
     postService = inject(PostService);
+    hardDeleting = false;
     restoring = false;
 
     isLikedByMe = signal(false);
@@ -36,6 +38,19 @@ export class RemovedPostComponent {
             },
             error: () => {
                 this.restoring = false;
+            }
+        });
+    }
+
+    onPostHardDelete() {
+        this.hardDeleting = true;
+        this.postService.hardDeletePost(this.post.id).subscribe({
+            next: () => {
+                this.hardDeleted.emit(this.post.id);
+                this.hardDeleting = false;
+            },
+            error: () => {
+                this.hardDeleting = false;
             }
         });
     }

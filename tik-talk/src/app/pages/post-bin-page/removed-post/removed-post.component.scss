@@ -45,11 +45,16 @@
 .post__actions {
     display: flex;
     flex-flow: row nowrap;
-    gap: 20px;
     height: 32px;
     width: 100%;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
+}
+
+.post__actions-block {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 20px;
 }
 
 .post__action-btn {
@@ -82,6 +87,22 @@
     .restore-icon {
         width: 24px;
         height: 24px;
+        transition: 200ms;
+
+        &:hover {
+            color: var(--light-color);
+        }
+    }
+}
+
+.hard-delete-btn {
+    display: flex;
+    margin-left: auto;
+    color: var(--red-accent-color);
+
+    .hard-delete-icon {
+        width: 16px;
+        height: 16px;
         transition: 200ms;
 
         &:hover {

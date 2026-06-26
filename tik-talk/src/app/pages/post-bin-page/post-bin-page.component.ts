@@ -38,4 +38,8 @@ export class PostBinPageComponent {
     onRestored(postId: string) {
         this.posts.update(list => list.filter(p => p.id !== postId));
     }
+
+    onHardDeleted(postId: string) {
+        this.posts.update(list => list.filter(p => p.id !== postId));
+    }
 }
