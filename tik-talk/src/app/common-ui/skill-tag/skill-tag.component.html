@@ -1,0 +1,21 @@
+<p
+    class="skill-tag"
+    [class.removable]="removable"
+    [class.interactive]="interactive"
+    (click)="onClick()"
+    (keydown.enter)="onClick()"
+    (keydown.space)="onClick()"
+    [attr.tabindex]="interactive ? 0 : null"
+    role="button"
+>
+    @if (removable) {
+        <button
+            type="button"
+            class="skill-tag__remove"
+            (click)="onRemove($event)"
+        >
+            <svg icon="remove" class="remove-icon"></svg>
+        </button>
+    }
+    <span class="skill-tag__text">{{ skill }}</span>
+</p>

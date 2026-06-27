@@ -1,0 +1,47 @@
+.skill-tag {
+    display: flex;
+    flex-flow: row nowrap;
+    width: fit-content;
+    height: fit-content;
+    padding: 4px 8px;
+    color: var(--light-color);
+    border-radius: 2px;
+    border: 1px solid var(--light-color);
+    font-weight: 700;
+    font-size: 12px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    transition: 200ms;
+    &:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+    }
+}
+
+.skill-tag__remove {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--light-color);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    margin-right: 4px;
+    transition: 200ms;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    .remove-icon {
+        color: var(--light-color);
+        width: 16px;
+        height: 16px;
+    }
+
+    &:hover {
+        color: var(--red-accent-color);
+    }
+}

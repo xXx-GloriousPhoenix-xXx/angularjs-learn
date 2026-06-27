@@ -1,16 +1,18 @@
-import { Component, Input, computed, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, computed, inject, signal } from '@angular/core';
 import { Profile } from '../../data/interfaces/profile.interface';
 import { RouterLink } from "@angular/router";
 import { ProfileService } from '../../data/services/profile.service';
+import { SkillTagComponent } from "../skill-tag/skill-tag.component";
 
 @Component({
     selector: 'app-profile-card',
-    imports: [RouterLink],
+    imports: [RouterLink, SkillTagComponent],
     templateUrl: './profile-card.html',
     styleUrl: './profile-card.scss',
 })
 export class ProfileCardComponent {
     @Input() profile!: Profile;
+    @Output() skillClick = new EventEmitter<string>();
     profileService = inject(ProfileService);
 
     isSubscribed = computed(() => {

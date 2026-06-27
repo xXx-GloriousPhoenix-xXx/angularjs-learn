@@ -71,7 +71,7 @@
             <div class="skills-wrapper mb32">
                 @if (hasSkills()) {
                     @for (skill of profile()!.stack | stackList; track skill) {
-                        <div class="skill-tag">{{ skill }}</div>
+                        <app-skill-tag [skill]="skill" />
                     }
                 } @else {
                     <p class="medium-text fallback-text">No skills mentioned yet</p>

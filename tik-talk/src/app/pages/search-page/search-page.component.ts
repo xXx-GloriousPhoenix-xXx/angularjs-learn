@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, ViewChild, inject, signal } from '@angular/core';
 import { ProfileService } from '../../data/services/profile.service';
 import { ProfileCardComponent } from '../../common-ui/profile-card/profile-card';
 import { ProfileFiltersComponent } from "./profile-filters/profile-filters.component";
@@ -21,6 +21,8 @@ export class SearchPageComponent {
     pageNum = signal(1);
     private currentFilters: Record<string, any> = {};
 
+    @ViewChild(ProfileFiltersComponent) filtersComponent!: ProfileFiltersComponent;
+
     onFiltersChange(filters: Record<string, any>) {
         this.currentFilters = filters;
         this.pageNum.set(1);
@@ -38,5 +40,9 @@ export class SearchPageComponent {
             pageNum: this.pageNum(),
             pageSize: PAGE_SIZE
         }).subscribe();
+    }
+
+    onSkillClick(skill: string) {
+        this.filtersComponent?.addSkill(skill);
     }
 }

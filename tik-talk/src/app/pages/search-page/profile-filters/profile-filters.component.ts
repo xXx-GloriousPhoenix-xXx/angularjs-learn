@@ -21,7 +21,7 @@ export class ProfileFiltersComponent {
         name: [''],
         registerDate: [''],
         city: [''],
-        stack: ['']
+        stack: [[] as string[]]
     });
 
     constructor() {
@@ -34,6 +34,16 @@ export class ProfileFiltersComponent {
             .subscribe(formValue => {
                 this.filtersChange.emit(this.cleanParams(formValue));
             });
+    }
+
+    addSkill(skill: string) {
+        const currentStack: string[] = this.searchForm.controls.stack.value ?? [];
+
+        const uniqueStack = [...new Set([...currentStack, skill])];
+        if (uniqueStack.length !== currentStack.length || !uniqueStack.every((s, i) => s === currentStack[i])) {
+            console.log('uniqueStack:', uniqueStack);
+            this.searchForm.controls.stack.setValue(uniqueStack);
+        }
     }
 
     private cleanParams(formValue: Record<string, any>): Record<string, any> {

@@ -3,17 +3,11 @@
 
     <div class="tag-input__wrapper">
         @for (tag of tagList(); track tag) {
-            <div class="skill-tag">
-                <button
-                    type="button"
-                    class="skill-tag__remove"
-                    (click)="removeTag(tag)"
-                    [disabled]="disabled()"
-                >
-                    <svg icon="remove" class="remove-icon"></svg>
-                </button>
-                {{ tag }}
-            </div>
+            <app-skill-tag
+                [skill]="tag"
+                [removable]="true"
+                (remove)="removeTag($event)"
+            />
         }
         <input
             type="text"

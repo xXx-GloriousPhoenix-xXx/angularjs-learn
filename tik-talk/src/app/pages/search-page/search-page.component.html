@@ -4,6 +4,7 @@
     @for (profile of profiles().items; track profile.id) {
         <app-profile-card
             [profile]="profile"
+            (skillClick)="onSkillClick($event)"
         ></app-profile-card>
     }
 </div>

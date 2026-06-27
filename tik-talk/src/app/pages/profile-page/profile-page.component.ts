@@ -9,10 +9,11 @@ import { StackListPipe } from '../../common-ui/pipes/stack-list-pipe';
 import { SvgIconComponent } from "../../common-ui/svg-icon/svg-icon.component";
 import { DestroyRef } from '@angular/core';
 import { CountIndicatorComponent } from "../../common-ui/count-indicator/count-indicator.component";
+import { SkillTagComponent } from "../../common-ui/skill-tag/skill-tag.component";
 
 @Component({
     selector: 'app-profile-page',
-    imports: [ProfileHeaderComponent, RouterLink, PostFeedComponent, StackListPipe, SvgIconComponent, CountIndicatorComponent],
+    imports: [ProfileHeaderComponent, RouterLink, PostFeedComponent, StackListPipe, SvgIconComponent, CountIndicatorComponent, SkillTagComponent],
     templateUrl: './profile-page.component.html',
     styleUrl: './profile-page.component.scss',
 })

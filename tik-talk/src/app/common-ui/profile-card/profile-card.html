@@ -15,7 +15,11 @@
         <div class="profile-card__description">{{ profile.description }}</div>
         <div class="profile-card__tags">
             @for (skill of profile.stack; track skill) {
-                <div class="skill-tag">{{ skill }}</div>
+                <app-skill-tag
+                    [skill]="skill"
+                    [interactive]="true"
+                    (tagClick)="skillClick.emit($event)"
+                />
             }
         </div>
         <div class="profile-card__action-btns">
