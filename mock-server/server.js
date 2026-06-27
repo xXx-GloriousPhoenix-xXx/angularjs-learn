@@ -88,6 +88,11 @@ app.use('/account', accountRoutes);
 app.use('/posts', postRoutes);
 app.use('/subscribers', subscriptionRoutes);
 
+app.use((err, req, res, next) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+});
+
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
     console.log(`  Swagger UI: http://localhost:${PORT}/docs`);

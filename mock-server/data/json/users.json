@@ -8,5 +8,15 @@
     "username": "abcd",
     "email": "abcd@gmail.com",
     "passwordHash": "234c0c83347021f1827dfc2d04d2a200a845da2c74110b7894b82c83bab74637"
+  },
+  {
+    "username": "loid_forger",
+    "email": "loid_forger@mailfence.com",
+    "passwordHash": "acb6ebb484a0a85d00fa0838b85f02c6b834a6afdd863ddb297b5a63c150158f"
+  },
+  {
+    "username": "anya_forger",
+    "email": "anya_forger@mailfence.com",
+    "passwordHash": "141558664dcb9b9c3c01ee90c63adaa8e2a7c667199da0ea4149b236ba4a32e5"
   }
 ]

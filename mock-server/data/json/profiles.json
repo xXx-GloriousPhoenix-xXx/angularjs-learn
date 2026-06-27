@@ -36,5 +36,49 @@
     ],
     "city": "",
     "registerDate": "2026-06-25"
+  },
+  {
+    "id": "loid_forger",
+    "username": "loid_forger",
+    "avatarUrl": "http://localhost:3000/account/me/avatar/loid_forger-1782520786652.jpg",
+    "subscriptionsAmount": 0,
+    "firstName": "Loid",
+    "lastName": "Forger",
+    "description": "Focused on building scalable, secure, and resilient backend systems. Passionate about clean architecture, performance optimization, and automating everything from deployment to infrastructure.",
+    "isActive": true,
+    "stack": [
+      ".NET",
+      "ASP.NET",
+      "EFCore",
+      "PostgreSQL",
+      "GoF",
+      "Docker",
+      "Kubernetes"
+    ],
+    "city": "",
+    "registerDate": "2026-06-27"
+  },
+  {
+    "id": "anya_forger",
+    "username": "anya_forger",
+    "avatarUrl": "http://localhost:3000/account/me/avatar/anya_forger-1782524026582.jpg",
+    "subscriptionsAmount": 0,
+    "firstName": "Anya",
+    "lastName": "Forger",
+    "description": "QA engineer who can practically read the developers' minds to find where the bugs are hidden. Passionate about automated testing, breaking things on purpose, and ensuring the final product works flawlessly for end-users.",
+    "isActive": true,
+    "stack": [
+      "Postman",
+      "JMeter",
+      "Puppeteer",
+      "QA Automation",
+      "Cypress",
+      "Playwright",
+      "CI/CD",
+      "Bug Tracking",
+      "DevTools"
+    ],
+    "city": "",
+    "registerDate": "2026-06-27"
   }
 ]

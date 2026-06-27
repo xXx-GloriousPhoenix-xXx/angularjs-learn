@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProfileHeaderComponent } from "../../common-ui/profile-header/profile-header.component";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ProfileService } from '../../data/services/profile.service';
@@ -7,6 +7,7 @@ import { Subject, map, merge, of, startWith, switchMap } from 'rxjs';
 import { PostFeedComponent } from "./post-feed/post-feed.component";
 import { StackListPipe } from '../../common-ui/pipes/stack-list-pipe';
 import { SvgIconComponent } from "../../common-ui/svg-icon/svg-icon.component";
+import { DestroyRef } from '@angular/core';
 
 @Component({
     selector: 'app-profile-page',
@@ -14,9 +15,10 @@ import { SvgIconComponent } from "../../common-ui/svg-icon/svg-icon.component";
     templateUrl: './profile-page.component.html',
     styleUrl: './profile-page.component.scss',
 })
-export class ProfilePageComponent {
+export class ProfilePageComponent implements OnInit, OnDestroy {
     profileService = inject(ProfileService);
     route = inject(ActivatedRoute);
+    destroyRef = inject(DestroyRef);
 
     private me$ = toObservable(this.profileService.me);
 
@@ -87,6 +89,22 @@ export class ProfilePageComponent {
         const stack = this.profile()?.stack;
         return Array.isArray(stack) ? stack.length > 0 : !!stack;
     });
+
+    private pollingTimer: any = null;
+    private readonly POLL_INTERVAL = 15000; // 15 секунд
+
+    ngOnInit() {
+        this.pollingTimer = setInterval(() => {
+            this.refreshSubs$.next();
+            this.refreshProfile$.next();
+        }, this.POLL_INTERVAL);
+    }
+
+    ngOnDestroy() {
+        if (this.pollingTimer) {
+            clearInterval(this.pollingTimer);
+        }
+    }
 
     onToggleSubscribe() {
         const profile = this.profile();

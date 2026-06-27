@@ -6,10 +6,12 @@ import { LoginPayload } from '../interfaces/login-payload.interface';
 import { RegisterPayload } from '../interfaces/register-payload.interface';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ProfileService } from './profile.service';
 
 @Service()
 export class AuthService {
     http = inject(HttpClient);
+    profileService = inject(ProfileService);
     baseApiUrl = 'http://localhost:3000/auth';
     
     cookieService = inject(CookieService);
@@ -62,6 +64,7 @@ export class AuthService {
 
     logout() {
         this.removeToken();
+        this.profileService.stopPolling();
         this.router.navigate(['/auth/login']);
     }
 

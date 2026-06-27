@@ -14,8 +14,8 @@ import { firstValueFrom } from 'rxjs';
 export class SidebarComponent {
     profileService = inject(ProfileService);
     me = this.profileService.me
-    subscriberCount = this.profileService.subscribersCount;
-    subscribers = this.profileService.subscribers;
+    subscribersCount = this.profileService.mySubscribersCount;
+    subscribers = this.profileService.mySubscribers;
 
     menuItems = [
         {

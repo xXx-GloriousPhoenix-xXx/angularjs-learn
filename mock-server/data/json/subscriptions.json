@@ -6,5 +6,37 @@
   {
     "followerUsername": "abcd",
     "followingUsername": "yor_forger"
+  },
+  {
+    "followerUsername": "abcd",
+    "followingUsername": "loid_forger"
+  },
+  {
+    "followerUsername": "yor_forger",
+    "followingUsername": "loid_forger"
+  },
+  {
+    "followerUsername": "loid_forger",
+    "followingUsername": "yor_forger"
+  },
+  {
+    "followerUsername": "loid_forger",
+    "followingUsername": "abcd"
+  },
+  {
+    "followerUsername": "anya_forger",
+    "followingUsername": "yor_forger"
+  },
+  {
+    "followerUsername": "anya_forger",
+    "followingUsername": "loid_forger"
+  },
+  {
+    "followerUsername": "yor_forger",
+    "followingUsername": "anya_forger"
+  },
+  {
+    "followerUsername": "loid_forger",
+    "followingUsername": "anya_forger"
   }
 ]

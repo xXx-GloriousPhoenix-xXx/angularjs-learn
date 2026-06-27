@@ -20,7 +20,7 @@
     </ul>
 </nav>
 
-@if (subscriberCount() > 0) {
+@if (subscribersCount() > 0) {
     <p class="medium-text mb20 mt20">Subscribers</p>
 
     @for (profile of subscribers(); track profile.id) {

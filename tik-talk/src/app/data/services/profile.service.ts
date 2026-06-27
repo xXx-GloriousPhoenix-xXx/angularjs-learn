@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Service, computed, inject, signal } from '@angular/core';
+import { DestroyRef, Service, computed, effect, inject, signal } from '@angular/core';
 import { Profile } from '../interfaces/profile.interface';
 import { Subject, map, of, startWith, switchMap, tap } from 'rxjs';
 import { Pagable } from '../interfaces/pagable.interface';
@@ -136,5 +136,36 @@ export class ProfileService {
     
     unsubscribe(username: string) {
         return this.http.delete<any>(`${this.baseApiUrl}/subscribers/${username}`);
+    }
+
+    private pollingInterval: any = null;
+    private readonly POLLING_INTERVAL_MS = 15000;
+
+    constructor() {
+        effect(() => {
+            const currentMe = this.me();
+            if (currentMe) {
+                this.startPolling();
+            } else {
+                this.stopPolling();
+            }
+        });
+    
+        inject(DestroyRef).onDestroy(() => this.stopPolling());
+    }
+
+    startPolling() {
+        if (this.pollingInterval) return;
+        this.pollingInterval = setInterval(() => {
+            this.refreshMySubscribers();
+            this.loadMySubscriptions();
+        }, this.POLLING_INTERVAL_MS);
+    }
+    
+    stopPolling() {
+        if (this.pollingInterval) {
+            clearInterval(this.pollingInterval);
+            this.pollingInterval = null;
+        }
     }
 }

@@ -1,0 +1,39 @@
+@if (profile(); as profile) {
+    <div class="info__wrapper">
+        <a
+            [routerLink]="[`/profile/${profile.username}`]"
+        >
+            <img
+                class="subscriber__avatar mb16"
+                [src]="profile.avatarUrl"
+                [alt]="profile.username"
+            >
+        </a>
+        <h4 class="h4 mb16 subscriber__name__wrapper">
+            {{ profile.firstName }} {{ profile.lastName }}
+        </h4>
+        <button 
+            class="btn"
+            (click)="onToggleSubscribe()"
+        >
+            {{ isSubscribed() ? 'Unsubscribe' : 'Subscribe' }}
+        </button>
+    </div>
+    <div class="detail__wrapper">
+        <h6 class="h6 mb16">Skills</h6>
+        <div class="skills-wrapper mb32">
+            @if (hasSkills()) {
+                @for (skill of profile.stack; track skill) {
+                    <div class="skill-tag">{{ skill }}</div>
+                }
+            } @else {
+                <p class="medium-text fallback-text">No skills mentioned yet</p>
+            }
+        </div>
+
+        <h6 class="h6 mb16">About me</h6>
+        <p class="medium-text">
+            {{ profile.description || 'Not description left yet' }}
+        </p>
+    </div>
+}

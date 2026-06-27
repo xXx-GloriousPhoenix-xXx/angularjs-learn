@@ -8,6 +8,7 @@ import { canActivateAuth } from './common-ui/access.guard';
 import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { PostBinPageComponent } from './pages/post-bin-page/post-bin-page.component';
+import { SubscribersPageComponent } from './pages/subscribers-page/subscribers-page.component';
 
 export const routes: Routes = [
     { 
@@ -19,6 +20,7 @@ export const routes: Routes = [
             { path: 'profile/:id', component: ProfilePageComponent },
             { path: 'post-bin', component: PostBinPageComponent },
             { path: 'settings', component: SettingsPageComponent },
+            { path: 'subscribers', component: SubscribersPageComponent }
         ],
         canActivate: [canActivateAuth]
     },
