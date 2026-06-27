@@ -5,18 +5,41 @@
 >
 <nav>
     <ul class="main-menu-list">
-        @for (item of menuItems; track item.label) {
-            <li>
-                <a
-                    class="menu-item"
-                    [routerLink]="[item.link]"
-                    routerLinkActive="active"
-                >
-                    <svg [icon]="item.icon" class="menu-item-icon"></svg>
-                    <span>{{ item.label }}</span>
-                </a>
-            </li>
-        }
+        <li>
+            <a
+                class="menu-item"
+                [routerLink]="['/profile/me']"
+                routerLinkActive="active"
+            >
+                <svg [icon]="'home'" class="menu-item-icon"></svg>
+                <span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a
+                class="menu-item"
+                [routerLink]="['/chats']"
+                routerLinkActive="active"
+            >
+                <svg [icon]="'chat'" class="menu-item-icon"></svg>
+                <span>Chats</span>
+
+                <app-count-indicator
+                    [count]="-1"
+                    [color]="'var(--primary-color)'"
+                />
+            </a>
+        </li>
+        <li>
+            <a
+                class="menu-item"
+                [routerLink]="['/search']"
+                routerLinkActive="active"
+            >
+                <svg [icon]="'search'" class="menu-item-icon"></svg>
+                <span>Search</span>
+            </a>
+        </li>
     </ul>
 </nav>
 

@@ -38,7 +38,10 @@
         <div class="about-me">
             <div class="mb16 subscriber-text__wrapper">
                 <h6 class="h6">Subscribers</h6>
-                <span class="subscriber-counter">{{ subscriberCount() }}</span>
+                <app-count-indicator
+                    [count]="subscriberCount()"
+                    [color]="'var(--green-accent-color)'"
+                />
             </div>
             <div class="subscribers-wrapper mb32">
                 @for (subscriber of subscribers(); track subscriber.id) {

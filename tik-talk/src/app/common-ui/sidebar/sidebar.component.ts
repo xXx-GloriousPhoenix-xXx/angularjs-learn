@@ -4,10 +4,11 @@ import { SubscriberCardComponent } from "./subscriber-card/subscriber-card.compo
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { ProfileService } from '../../data/services/profile.service';
 import { firstValueFrom } from 'rxjs';
+import { CountIndicatorComponent } from "../count-indicator/count-indicator.component";
 
 @Component({
     selector: 'app-sidebar',
-    imports: [SvgIconComponent, RouterLink, SubscriberCardComponent, RouterLinkActive],
+    imports: [SvgIconComponent, RouterLink, SubscriberCardComponent, RouterLinkActive, CountIndicatorComponent],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.scss',
 })
@@ -16,24 +17,6 @@ export class SidebarComponent {
     me = this.profileService.me
     subscribersCount = this.profileService.mySubscribersCount;
     subscribers = this.profileService.mySubscribers;
-
-    menuItems = [
-        {
-            label: 'Home',
-            icon: 'home',
-            link: 'profile/me'
-        },
-        {
-            label: 'Chats',
-            icon: 'chat',
-            link: 'chats'
-        },
-        {
-            label: 'Search',
-            icon: 'search',
-            link: 'search'
-        }
-    ];
 
     ngOnInit() {
         firstValueFrom(this.profileService.getMe());

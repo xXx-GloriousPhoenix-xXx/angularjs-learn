@@ -8,10 +8,11 @@ import { PostFeedComponent } from "./post-feed/post-feed.component";
 import { StackListPipe } from '../../common-ui/pipes/stack-list-pipe';
 import { SvgIconComponent } from "../../common-ui/svg-icon/svg-icon.component";
 import { DestroyRef } from '@angular/core';
+import { CountIndicatorComponent } from "../../common-ui/count-indicator/count-indicator.component";
 
 @Component({
     selector: 'app-profile-page',
-    imports: [ProfileHeaderComponent, RouterLink, PostFeedComponent, StackListPipe, SvgIconComponent],
+    imports: [ProfileHeaderComponent, RouterLink, PostFeedComponent, StackListPipe, SvgIconComponent, CountIndicatorComponent],
     templateUrl: './profile-page.component.html',
     styleUrl: './profile-page.component.scss',
 })
