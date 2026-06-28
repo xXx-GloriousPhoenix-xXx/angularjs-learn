@@ -1,0 +1,33 @@
+:host {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-color);
+}
+
+.chat-list__header {
+    border: 1px solid var(--light-color);
+    display: flex;
+    width: 100%;
+    padding: 16px 20px;
+    height: 76px;
+}
+
+.contact-list__wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    background: var(--dark-color);
+}
+
+.contact-item__wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    border: 1px solid var(--light-color);
+    padding: 24px 20px;
+}
+
+.avatar__wrapper {
+    display: flex;
+    
+}

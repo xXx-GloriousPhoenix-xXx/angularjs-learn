@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { ProfileHeaderComponent } from "../../common-ui/profile-header/profile-header.component";
-import { ActivatedRoute, RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ProfileService } from '../../data/services/profile.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Subject, map, merge, of, startWith, switchMap } from 'rxjs';
@@ -10,6 +10,7 @@ import { SvgIconComponent } from "../../common-ui/svg-icon/svg-icon.component";
 import { DestroyRef } from '@angular/core';
 import { CountIndicatorComponent } from "../../common-ui/count-indicator/count-indicator.component";
 import { SkillTagComponent } from "../../common-ui/skill-tag/skill-tag.component";
+import { ChatService } from '../../data/services/chat.service';
 
 @Component({
     selector: 'app-profile-page',
@@ -19,7 +20,9 @@ import { SkillTagComponent } from "../../common-ui/skill-tag/skill-tag.component
 })
 export class ProfilePageComponent implements OnInit, OnDestroy {
     profileService = inject(ProfileService);
+    chatService = inject(ChatService);
     route = inject(ActivatedRoute);
+    router = inject(Router);
     destroyRef = inject(DestroyRef);
 
     private me$ = toObservable(this.profileService.me);
@@ -126,5 +129,11 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
             },
             error: (err) => console.error('Subscription error', err)
         });
+    }
+
+    onMessage() {
+        const username = this.profile()!.username;
+        this.chatService.openChat(username);
+        this.router.navigate([`/chats`])
     }
 }

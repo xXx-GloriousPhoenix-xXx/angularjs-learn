@@ -9,6 +9,8 @@ import { ProfilePageComponent } from './pages/profile-page/profile-page.componen
 import { SettingsPageComponent } from './pages/settings-page/settings-page.component';
 import { PostBinPageComponent } from './pages/post-bin-page/post-bin-page.component';
 import { SubscribersPageComponent } from './pages/subscribers-page/subscribers-page.component';
+import { ChatLayoutComponent } from './common-ui/chat-layout/chat-layout.component';
+import { ChatWindowComponent } from './common-ui/chat-window/chat-window.component';
 
 export const routes: Routes = [
     { 
@@ -20,7 +22,15 @@ export const routes: Routes = [
             { path: 'profile/:id', component: ProfilePageComponent },
             { path: 'post-bin', component: PostBinPageComponent },
             { path: 'settings', component: SettingsPageComponent },
-            { path: 'subscribers', component: SubscribersPageComponent }
+            { path: 'subscribers', component: SubscribersPageComponent },
+            { 
+                path: 'chats',
+                component: ChatLayoutComponent,
+                children: [
+                    { path: '', component: ChatWindowComponent },
+                    { path: ':id', component: ChatWindowComponent },
+                ]
+            }
         ],
         canActivate: [canActivateAuth]
     },

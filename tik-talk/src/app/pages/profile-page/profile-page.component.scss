@@ -28,7 +28,30 @@
     justify-content: center;
     gap: 8px;
     height: fit-content;
-    margin-left: 24px;
+}
+
+.write-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+
+    &:hover {
+        color: var(--light-color);
+    }
+}
+
+.action-btn__wrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 8px;
+}
+
+.write-icon {
+    width: 16px;
+    height: 16px;
 }
 
 .profile-page__body {
@@ -150,3 +173,4 @@
     position: fixed;
     bottom: 20px;
 }
+

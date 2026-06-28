@@ -13,12 +13,20 @@
             </a>
         }
         @else {
-            <button
-                class="btn action-btn"
-                (click)="onToggleSubscribe()"
-            >
-                {{ isSubscribed() ? 'Unsubscribe' : 'Subscribe' }}
-            </button>
+            <div class="ml24 action-btn__wrapper">
+                <button
+                    class="btn action-btn"
+                    (click)="onToggleSubscribe()"
+                >
+                    {{ isSubscribed() ? 'Unsubscribe' : 'Subscribe' }}
+                </button>
+                <button
+                    class="btn write-btn"
+                    (click)="onMessage()"
+                >
+                    <svg icon="write" class="write-icon"></svg>
+                </button>
+            </div>
         }
     </header>
     <main class="profile-page__body">

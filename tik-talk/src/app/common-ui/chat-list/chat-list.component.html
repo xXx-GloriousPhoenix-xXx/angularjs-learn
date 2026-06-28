@@ -1,0 +1,30 @@
+<header class="chat-list__header">
+    <app-search-input
+        placeholder="Search..."
+    />
+</header>
+<ul class="contact-list__wrapper">
+    @for (chat of chats(); track chat.id) {
+        <li 
+            class="contact-item__wrapper"
+            /* (click)="chatService.openChat(getOtherParticipant(chat))" */
+        >
+            <!-- <img [src]="user.avatarUrl" [alt]="user.username"> -->
+            <div class="content__wrapper">
+                <header>
+                    <div>
+                        user.firstName user.lastName
+                    </div>
+                    <div>
+                        // if today then time else date of last message
+                    </div>
+                </header>
+                <div>
+                    chat.lastMessage
+                </div>
+                <!-- <span>{{ getOtherParticipant(chat) }}</span> -->
+                <small>{{ chat.lastMessage }}</small>
+            </div>
+        </li>
+    }
+</ul>

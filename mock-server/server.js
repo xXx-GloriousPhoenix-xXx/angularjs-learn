@@ -8,6 +8,7 @@ const authRoutes = require('./src/routes/auth.routes');
 const accountRoutes = require('./src/routes/account.routes');
 const postRoutes = require('./src/routes/post.routes');
 const subscriptionRoutes = require('./src/routes/subscription.routes');
+const chatRoutes = require('./src/routes/chat.routes');
 const { IMAGES_DIR } = require('./src/utils/avatar-upload');
 
 const app = express();
@@ -87,6 +88,7 @@ app.use('/auth', authRoutes);
 app.use('/account', accountRoutes);
 app.use('/posts', postRoutes);
 app.use('/subscribers', subscriptionRoutes);
+app.use('/chats', chatRoutes);
 
 app.use((err, req, res, next) => {
     console.error('Unhandled error:', err);

@@ -1,0 +1,11 @@
+<input
+    class="content"
+    type="text"
+    [placeholder]="placeholder"
+    [value]="value()"
+    (input)="onInput($any($event.target).value)"
+>
+<svg
+    class="search-icon"
+    icon="search"
+></svg>
