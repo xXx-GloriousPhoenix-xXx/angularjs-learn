@@ -1,17 +1,20 @@
-@if (activeChatId()) {
-    <div class="messages">
-        @for (msg of messages(); track msg.id) {
-            <div [class.own]="msg.senderUsername === me()?.username">
-                <strong>{{ msg.senderUsername }}</strong>
-                <p>{{ msg.text }}</p>
-                <small>{{ msg.timestamp | date:'shortTime' }}</small>
-            </div>
-        }
-    </div>
-    <div class="input-area">
-        <input [(ngModel)]="newMessage" (keyup.enter)="send()" placeholder="Введите сообщение..." />
-        <button (click)="send()">Отправить</button>
-    </div>
-} @else {
-    <p>Выберите чат</p>
-}
+<header></header>
+<main>
+    @if (activeChatId()) {
+        <div class="messages">
+            @for (msg of messages(); track msg.id) {
+                <div [class.own]="msg.senderUsername === me()?.username">
+                    <strong>{{ msg.senderUsername }}</strong>
+                    <p>{{ msg.text }}</p>
+                    <small>{{ msg.timestamp | date:'shortTime' }}</small>
+                </div>
+            }
+        </div>
+        <div class="input-area">
+            <input [(ngModel)]="newMessage" (keyup.enter)="send()" placeholder="Введите сообщение..." />
+            <button (click)="send()">Отправить</button>
+        </div>
+    } @else {
+        <p class="chat-placeholder">Choose a chat</p>
+    }
+</main>

@@ -5,26 +5,29 @@
 </header>
 <ul class="contact-list__wrapper">
     @for (chat of chats(); track chat.id) {
-        <li 
-            class="contact-item__wrapper"
-            /* (click)="chatService.openChat(getOtherParticipant(chat))" */
-        >
-            <!-- <img [src]="user.avatarUrl" [alt]="user.username"> -->
-            <div class="content__wrapper">
-                <header>
-                    <div>
-                        user.firstName user.lastName
-                    </div>
-                    <div>
-                        // if today then time else date of last message
-                    </div>
-                </header>
-                <div>
-                    chat.lastMessage
+        <li class="contact-item__wrapper">
+            <a
+                class="link__wrapper"
+                [routerLink]="`/chats/${chat.otherUser.username}`"
+                [routerLinkActive]="'active'"
+            >
+                <img
+                    [src]="chat.otherUser.avatarUrl"
+                    [alt]="chat.otherUser.username"
+                    class="contact-avatar"
+                >
+                <div class="content__wrapper">
+                    <header class="medium-text content__header">
+                        <span class="contact-name">
+                            {{ chat.otherUser.firstName }} {{ chat.otherUser.lastName }}
+                        </span>
+                        <span class="contact-last-activity">
+                            {{ formatLastActivity(chat.lastActivity) }}
+                        </span>
+                    </header>
+                    <small class="contact-last-message">{{ chat.lastMessage }}</small>
                 </div>
-                <!-- <span>{{ getOtherParticipant(chat) }}</span> -->
-                <small>{{ chat.lastMessage }}</small>
-            </div>
+            </a>
         </li>
     }
 </ul>

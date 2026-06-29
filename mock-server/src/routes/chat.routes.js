@@ -16,7 +16,6 @@ router.get('/', requireAuth, (req, res) => {
 router.post('/:username', requireAuth, (req, res) => {
     try {
         const chat = chatService.getOrCreateChat(req.username, req.params.username);
-        // Возвращаем чат (можно просто id)
         res.json({ chatId: chat.id, participants: chat.participants });
     } catch (err) {
         res.status(err.statusCode || 500).json({ error: err.message });

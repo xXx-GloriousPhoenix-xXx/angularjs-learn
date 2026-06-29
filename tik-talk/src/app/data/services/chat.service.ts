@@ -1,24 +1,23 @@
 import { HttpClient } from '@angular/common/http';
 import { Service, inject, signal } from '@angular/core';
-import { ProfileService } from './profile.service';
-import { Chat } from '../interfaces/chat.interface';
 import { Message } from '../interfaces/message.interface';
-import { forkJoin, map, switchMap, tap } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs';
 import { ChatListItem } from '../interfaces/chat-list-item.interface';
 
 @Service()
 export class ChatService {
     http = inject(HttpClient);
-    profileService = inject(ProfileService);
     baseApiUrl = 'http://localhost:3000/chats';
-
+    
     chats = signal<ChatListItem[]>([]);
     activeChatId = signal<string | null>(null);
     messages = signal<Message[]>([]);
     isLoadingMessages = signal(false);
 
     loadChats() {
-        this.http.get<Chat[]>(`${this.baseApiUrl}`);
+        this.http.get<ChatListItem[]>(`${this.baseApiUrl}`).subscribe({
+            next: (chats) => this.chats.set(chats),
+        });
     }
 
     openChat(otherUsername: string) {
@@ -39,7 +38,7 @@ export class ChatService {
                     this.messages.set(msgs);
                     this.isLoadingMessages.set(false);
                 },
-                error: () => this.isLoadingMessages.set(false)
+                error: () => this.isLoadingMessages.set(false),
             })
         );
     }
@@ -47,13 +46,14 @@ export class ChatService {
     sendMessage(text: string) {
         const chatId = this.activeChatId();
         if (!chatId) return;
+ 
         this.http.post<Message>(`${this.baseApiUrl}/${chatId}/messages`, { text }).subscribe({
             next: (msg) => {
                 this.messages.update(msgs => [...msgs, msg]);
-            }
+            },
         });
     }
-
+ 
     startPolling(intervalMs = 5000) {
         setInterval(() => {
             if (this.activeChatId()) {
@@ -62,4 +62,5 @@ export class ChatService {
             this.loadChats();
         }, intervalMs);
     }
+
 }

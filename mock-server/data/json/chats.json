@@ -5,7 +5,54 @@
       "anya_forger",
       "yor_forger"
     ],
-    "messages": [],
-    "lastActivity": "2026-06-28T03:51:51.197Z"
+    "messages": [
+      {
+        "id": "msg-1782687701558",
+        "senderUsername": "anya_forger",
+        "text": "asdasd",
+        "timestamp": "2026-06-28T23:01:41.558Z"
+      },
+      {
+        "id": "msg-1782691370621",
+        "senderUsername": "anya_forger",
+        "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "timestamp": "2026-06-29T00:02:50.621Z"
+      }
+    ],
+    "lastActivity": "2026-06-29T00:02:50.621Z"
+  },
+  {
+    "id": "chat-1782689851725-9471",
+    "participants": [
+      "anya_forger",
+      "loid_forger"
+    ],
+    "messages": [
+      {
+        "id": "msg-1782689855153",
+        "senderUsername": "anya_forger",
+        "text": "asdasd",
+        "timestamp": "2026-06-28T23:37:35.153Z"
+      },
+      {
+        "id": "msg-1782691241446",
+        "senderUsername": "anya_forger",
+        "text": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "timestamp": "2026-06-29T00:00:41.446Z"
+      },
+      {
+        "id": "msg-1782696506403",
+        "senderUsername": "anya_forger",
+        "text": "asdasd",
+        "timestamp": "2026-06-29T01:28:26.403Z"
+      },
+      {
+        "id": "msg-1782696528231",
+        "senderUsername": "anya_forger",
+        "text": "new",
+        "timestamp": "2026-06-29T01:28:48.231Z"
+      }
+    ],
+    "lastActivity": "2026-06-29T01:28:48.231Z"
   }
 ]

@@ -17,17 +17,50 @@
 .contact-list__wrapper {
     display: flex;
     flex-flow: column nowrap;
-    background: var(--dark-color);
 }
 
-.contact-item__wrapper {
+.link__wrapper {
     display: flex;
     flex-flow: row nowrap;
     border: 1px solid var(--light-color);
     padding: 24px 20px;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--light-color);
+    background: var(--dark-color);
+
+    &.active {
+        background: var(--dark-hover-color);
+
+        .contact-name,
+        .contact-last-activity {
+            color: var(--primary-color);
+        }
+    }
 }
 
-.avatar__wrapper {
+.contact-avatar {
     display: flex;
-    
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.content__wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+    gap: 16px;
+    min-width: 0;
+}
+
+.content__header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.contact-last-message {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
